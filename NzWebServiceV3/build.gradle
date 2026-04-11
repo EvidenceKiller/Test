@@ -1,0 +1,118 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+
+    namespace 'com.adl.web.service'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 26
+        targetSdkVersion 31
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation"  : "$projectDir/schemas".toString(),
+                              "room.incremental"     : "true",
+                              "room.expandProjection": "true"]
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            // Debug：不启用 StrictJsonDeserializer 严格字段校验，走 Gson 默认反序列化
+            buildConfigField "boolean", "ENABLE_STRICT_JSON_DESERIALIZATION", "true"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Release：启用严格校验（与 BuildType 绑定，勿用运行时 isDebug）
+            buildConfigField "boolean", "ENABLE_STRICT_JSON_DESERIALIZATION", "false"
+
+            android.libraryVariants.all { variant ->
+                variant.outputs.all {
+                    def date = new Date().format('yyyy-MM-dd')
+                    outputFileName = "NzWebSerivceV3-${date}.aar"
+                }
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs','../AdlLib/libs'  // aar目录
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    // Lombok 核心（编译期可见，不打包进 APK）
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    // 注解处理器（生成代码）
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+    // OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+    // RxJava3
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.8'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Room + RxJava3
+    def room_version = "2.4.3"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-rxjava3:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //  七牛云 latest: 8.5.1
+    implementation 'com.qiniu:qiniu-android-sdk:8.5.1'
+
+    // 基础库
+    //implementation project(path: ':AdlBase')
+
+    // fastJson
+    implementation 'com.alibaba:fastjson:1.2.83'
+
+    /////////////// oss ///////////////
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+    // AWS SDK依赖(必须)
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.77.0'
+    implementation 'com.amazonaws:aws-android-sdk-core:2.77.0'
+    /////////////// oss ///////////////
+
+    api(name: 'AdlBase-2026-03-10', ext: 'aar')
+    api(name: 'NzAuthCore-v2.0.1-2026-04-01', ext: 'aar')
+
+    api ("com.ssp:ssp-common-oss-android:1.1.1@aar")
+
+}

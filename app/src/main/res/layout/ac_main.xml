@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bnt_0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="摄像头"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性能测试"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_3_00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络流测试"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_3_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="多路流服务"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bnt_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="仰卧起坐"
+                android:textColor="@color/color_black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bnt_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单人测试"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="双人测试"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="五人测试"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="人框测试"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/bnt_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="双人高抬腿"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="双人摄像头"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="五人跳绳IPC"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="五人跳绳VideoGt"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bnt_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UVC摄像头"
+                android:textColor="@color/color_black"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/bnt_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10人运动"
+                android:textColor="@color/color_black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bnt_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="新斜身"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="新斜身Live"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="双脚交替跳"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bnt_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="摄像头切换"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_18_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ipc 视频录制"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bnt_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="跳远"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_20_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="跳远设置"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_20_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="网络设置"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/bnt_20_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="海康摄像头测试"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bnt_30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="V3测试"
+                    android:textColor="@color/color_black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

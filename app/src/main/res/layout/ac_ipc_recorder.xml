@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_black">
+
+    <FrameLayout
+        android:id="@+id/left_layout"
+        android:layout_width="960px"
+        android:layout_height="540px"
+        android:layout_marginTop="16dp">
+
+        <com.adl.lib.AdlCameraPreviewView
+            android:id="@+id/preview_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_debug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/WHITE"
+        android:textSize="@dimen/qb_px_36"
+        android:layout_toRightOf="@+id/left_layout"
+        android:text="debug  info"/>
+
+    <FrameLayout
+        android:id="@+id/right_layout"
+        android:layout_width="960px"
+        android:layout_height="540px"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@id/left_layout">
+
+        <com.adl.lib.camera.hk.IPCDVideoPlayer
+            android:id="@+id/hk_player"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bnt_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始录制" />
+
+        <Button
+            android:id="@+id/bnt_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="停止录制" />
+
+        <Button
+            android:id="@+id/bnt_marker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发令信号" />
+
+        <Button
+            android:id="@+id/bnt_marker_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="过线信号" />
+
+
+        <Button
+            android:id="@+id/bnt_play_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:text="回放视频" />
+
+        <Button
+            android:id="@+id/bnt_pause_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:text="暂停视频" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bnt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="退出"
+        android:textSize="@dimen/text_size_16" />
+
+</RelativeLayout>

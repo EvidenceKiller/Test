@@ -1,0 +1,5 @@
+include ':app'
+rootProject.name = "NzWebService"
+include ':AdlLib'
+//include ':AdlBase'
+include ':NzWebServiceV3'
