@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="WrapTextViewRegular">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="WrapTextViewBold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WrapTextViewYouShe">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!--    字体样式-->
+    <style name="SheetHeader" parent="WrapTextViewRegular">
+        <item name="android:paddingStart">@dimen/qb_px_24</item>
+        <item name="android:paddingTop">@dimen/qb_px_20</item>
+        <item name="android:paddingBottom">@dimen/qb_px_20</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/text_size_26</item>
+        <item name="android:lines">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SheetBody" parent="WrapTextViewRegular">
+        <item name="android:paddingStart">@dimen/qb_px_24</item>
+        <item name="android:layout_height">@dimen/qb_px_100</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/selector_ffffff_ccffffff</item>
+        <item name="android:textSize">@dimen/text_size_24</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:autoSizeMaxTextSize" tools:targetApi="o">@dimen/text_size_24</item>
+        <item name="android:autoSizeMinTextSize" tools:targetApi="o">@dimen/text_size_20</item>
+        <item name="android:autoSizeTextType" tools:targetApi="o">uniform</item>
+    </style>
+
+    <style name="SheetHeader2" parent="WrapTextViewRegular">
+        <item name="android:paddingTop">@dimen/qb_px_26</item>
+        <item name="android:paddingBottom">@dimen/qb_px_26</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="android:textSize">@dimen/text_size_32</item>
+        <item name="android:lines">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SheetBody2" parent="WrapTextViewRegular">
+        <item name="android:layout_height">@dimen/qb_px_120</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_white_80</item>
+        <item name="android:textSize">@dimen/text_size_28</item>
+        <item name="android:autoSizeMaxTextSize" tools:targetApi="o">@dimen/text_size_28</item>
+        <item name="android:autoSizeMinTextSize" tools:targetApi="o">@dimen/text_size_24</item>
+        <item name="android:autoSizeTextType" tools:targetApi="o">uniform</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!--alpha动画PopupWindow-->
+    <style name="AnimAlpha" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter_alpha_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit_alpha_anim</item>
+    </style>
+
+    <style name="TabLayoutTextStyle48">
+        <item name="android:textSize">@dimen/qb_px_48</item>
+    </style>
+
+    <style name="TabLayoutTextStyle36">
+        <item name="android:textSize">@dimen/qb_px_36</item>
+    </style>
+
+    <style name="TabLayoutTextStyle22">
+        <item name="android:textSize">@dimen/qb_px_22</item>
+    </style>
+
+    <style name="BottomSheet" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <array name="model_array">
+        <item>大</item>
+        <item>中</item>
+        <item>小</item>
+    </array>
+
+    <style name="ContentItemTv">
+        <item name="android:layout_width">@dimen/qb_px_112</item>
+        <item name="android:layout_height">@dimen/qb_px_48</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+    <style name="ContentItemTv2">
+        <item name="android:layout_width">@dimen/qb_px_112</item>
+        <item name="android:layout_height">@dimen/qb_px_48</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
+
+</resources>

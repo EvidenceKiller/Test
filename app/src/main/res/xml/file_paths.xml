@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!--
+file-path 物理路径为Context.getFilesDir() + /files/*
+cache-path 物理路径为Context.getCacheDir() + /files/*
+external-path 物理路径为Environment.getExternalStorageDirectory() + /files/*
+external-files-path 物理路径为Context.getExternalFilesDir(String) + /files/*
+external-cache-path 物理路径为Context.getExternalCacheDir() + /files/*
+    -->
+    <files-path
+        name="exam_files"
+        path="." />
+    <external-files-path
+        name="exam_externalDir"
+        path="." />
+    <external-path
+        name="exam_external_file"
+        path="." />
+</paths>

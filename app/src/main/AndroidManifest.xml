@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.adl.ts.general">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.CAPTURE_AUDIO_OUTPUT"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.font" />
+    <uses-feature android:name="android.hardware.camera.font.autofocus" /> <!-- 允许安装未知来源权限 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- NFC -->
+    <uses-permission android:name="android.permission.NFC" /> <!-- 仅在支持NFC的设备上运行 -->
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
+    <application
+        android:name="com.ai.test.DemoApp"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/security_config"
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.JfPadSport"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name="com.ai.duet.HKCameraActivity"
+            android:exported="true">
+
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider> <!-- 启动页 -->
+        <activity
+            android:name="com.ai.test.StartActivity"
+            android:exported="true"
+            android:theme="@style/AppBaseTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_usb" />
+        </activity>
+        <activity
+            android:name="com.ai.test.MainActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.test.BaseActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.test.Performance1Activity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.test.SingleActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.FiveActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.DoubleActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.k4.Test4KActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.test.CameraActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.DoubleHighLegLiftActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.DoubleCamaraActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.GroupSkippingLivingActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.GroupSkippingVideoGTActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.UVCCameraActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme">
+
+        </activity>
+        <activity
+            android:name="com.ai.duet.V4l2CameraActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme">
+
+        </activity>
+        <activity
+            android:name="com.ai.connect.NetPlayerActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.connect.NetPlayerServerActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.connect.TcpTestActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.GroupSportsActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.SinglePersonVideoActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.ropeskip.RopeSkipAFActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.SinglePersonLiveActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.test.CameraChangeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.test.IPCRecorderActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+
+        <activity
+            android:name="com.ai.test.ContentActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+
+        <activity
+            android:name="com.ai.test.ReportActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+
+        <activity
+            android:name="com.ai.test.ReportPreviewActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.duet.SwicthActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.situp.SitUpActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.jump.LongJumpActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name="com.ai.jump.LongJumpSetActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+
+        <activity
+            android:name="com.ai.test.HKCameraPreviewActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+
+        <activity
+            android:name="com.ai.test.TempTestActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppBaseTheme" />
+
+    </application>
+
+</manifest>

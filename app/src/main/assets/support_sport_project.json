@@ -1,0 +1,62 @@
+[
+  {
+    "aiChoose": "1001",
+    "projectName": "仰卧起坐"
+  },
+  {
+    "aiChoose": "1004",
+    "projectName": "跳绳"
+  },
+  {
+    "aiChoose": "1007",
+    "projectName": "立定跳远"
+  },
+  {
+    "aiChoose": "1015",
+    "projectName": "引体向上"
+  },
+  {
+    "aiChoose": "1019",
+    "projectName": "斜身引体"
+  },
+  {
+    "aiChoose": "1501",
+    "projectName": "排球对空颠球"
+  },
+  {
+    "aiChoose": "1502",
+    "projectName": "排球对墙颠球"
+  },
+  {
+    "aiChoose": "1503",
+    "projectName": "实心球"
+  },
+  {
+    "aiChoose": "1901",
+    "projectName": "身高体重"
+  },
+  {
+    "aiChoose": "1950",
+    "projectName": "身高"
+  },
+  {
+    "aiChoose": "1951",
+    "projectName": "体重"
+  },
+  {
+    "aiChoose": "1903",
+    "projectName": "体前屈"
+  },
+  {
+    "aiChoose": "1904",
+    "projectName": "肺活量"
+  },
+  {
+    "aiChoose": "1909",
+    "projectName": "800米跑"
+  },
+  {
+    "aiChoose": "1908",
+    "projectName": "1000米跑"
+  }
+]

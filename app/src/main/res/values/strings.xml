@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AI运动分析系统</string>
+
+    <string-array name="resolution">
+        <item>3840x1080</item>
+        <item>1920x1080</item>
+        <item>1920x536</item>
+        <item>1280x720</item>
+    </string-array>
+
+    <string-array name="fps">
+        <item>60</item>
+        <item>30</item>
+        <item>24</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="bitrate">
+        <item>12M</item>
+        <item>8M</item>
+        <item>6M</item>
+        <item>4M</item>
+        <item>2M</item>
+    </string-array>
+
+    <string-array name="model">
+        <item>3001</item>
+        <item>8M</item>
+        <item>6M</item>
+        <item>4M</item>
+        <item>2M</item>
+    </string-array>
+
+    <string-array name="jp_level">
+        <item>单人单摇-并脚跳</item>
+        <item>单人单摇-双脚交换跳</item>
+        <item>单人单摇-花式-开合跳</item>
+        <item>单人单摇-花式-弓步跳</item>
+        <item>单人单摇-花式-踏跳</item>
+        <item>单人单摇-花式-基本交叉跳</item>
+        <item>单人单摇-花式-左右侧甩直摇跳</item>
+        <item>两人1绳-1带1</item>
+    </string-array>
+
+</resources>

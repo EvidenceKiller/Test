@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_black">
+
+    <LinearLayout
+        android:id="@+id/layout_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/left_layout"
+            android:layout_width="2560px"
+            android:layout_height="1440px"
+            android:layout_centerInParent="true">
+
+            <com.adl.lib.AdlCameraPreviewView
+                android:id="@+id/preview_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.adl.base.overlay.SportOverlayRopeSkip
+                android:id="@+id/overlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/qb_px_20"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bnt_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始运动" />
+
+        <Button
+            android:id="@+id/bnt_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/qb_px_64"
+            android:text="保存区域" />
+
+        <Button
+            android:id="@+id/bnt_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/qb_px_64"
+            android:text="运动报告" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bnt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="退出"
+        android:textSize="@dimen/text_size_16" />
+
+    <TextView
+        android:id="@+id/timer_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/qb_px_40"
+        android:text="00:00"
+        android:textColor="@color/color_white"
+        android:textSize="32sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/layout_0"
+        android:layout_alignRight="@id/layout_0"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/color_0090FF"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/ContentItemTv"
+                android:layout_marginLeft="1dp"
+                android:text="关节角度" />
+
+            <TextView
+                style="@style/ContentItemTv"
+                android:layout_marginLeft="1dp"
+                android:text="左侧" />
+
+            <TextView
+                style="@style/ContentItemTv"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:text="右侧" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                style="@style/ContentItemTv2"
+                android:text="腕关节" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/wrist_left"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/wrist_right"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_0090FF" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                style="@style/ContentItemTv2"
+                android:layout_marginStart="1px"
+                android:text="肘关节" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/elbow_left"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/elbow_right"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_0090FF" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                style="@style/ContentItemTv2"
+                android:text="肩关节" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/shoulder_left"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/shoulder_right"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_0090FF" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                style="@style/ContentItemTv2"
+                android:text="髋关节" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/hip_left"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/hip_right"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_0090FF" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                style="@style/ContentItemTv2"
+                android:text="膝关节" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/knee_left"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/knee_right"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_0090FF" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                style="@style/ContentItemTv2"
+                android:text="踝关节" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/ankle_left"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+            <TextView
+                android:id="@+id/ankle_right"
+                style="@style/ContentItemTv2"
+                android:text="0" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_0090FF" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_0090FF" />
+
+    </LinearLayout>
+
+</RelativeLayout>

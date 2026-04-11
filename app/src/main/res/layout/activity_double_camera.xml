@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_black">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/left_layout"
+        android:layout_width="1920px"
+        android:layout_height="1080px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <com.adl.lib.AdlCameraPreviewView
+            android:id="@+id/preview_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.adl.base.overlay.SportOverlayMultiRegion
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_left_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="75dp"
+            android:text="0"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/text_size_80"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_left_angle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="0"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/text_size_80"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_left_count" />
+
+        <TextView
+            android:id="@+id/tv_right_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:layout_marginRight="30dp"
+            android:text="0"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/text_size_80"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_right_angle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:text="0"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/text_size_80"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_right_count" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bnt_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="开始" />
+
+        <Button
+            android:id="@+id/bnt_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@+id/bnt_start"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="重置" />
+
+        <TextView
+            android:id="@+id/score_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/qb_px_24"
+            android:textColor="#ffffff"
+            android:text="--个"
+            app:layout_constraintLeft_toRightOf="@+id/bnt_reset"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/text_size_16" />
+
+        <TextView
+            android:id="@+id/info_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/qb_px_24"
+            app:layout_constraintLeft_toRightOf="@+id/score_tv"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_size_16" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/bnt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="退出"
+        android:textSize="@dimen/text_size_16" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

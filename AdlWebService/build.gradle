@@ -1,0 +1,94 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+
+    namespace 'com.adl.web.service'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 26
+        targetSdkVersion 31
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation"  : "$projectDir/schemas".toString(),
+                              "room.incremental"     : "true",
+                              "room.expandProjection": "true"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            android.libraryVariants.all { variant ->
+                variant.outputs.all {
+                    def date = new Date().format('yyyy-MM-dd')
+                    outputFileName = "NzWebSerivce-${date}.aar"
+                }
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs','../AdlLib/libs'  // aar目录
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    //  Room数据库
+    def room_version = "2.4.3"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //  七牛云 latest: 8.5.1
+    implementation 'com.qiniu:qiniu-android-sdk:8.5.1'
+
+    // 基础库
+    //implementation project(path: ':AdlBase')
+
+    // fastJson
+    implementation 'com.alibaba:fastjson:1.2.83'
+
+    /////////////// oss ///////////////
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+    // AWS SDK依赖(必须)
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.77.0'
+    implementation 'com.amazonaws:aws-android-sdk-core:2.77.0'
+    /////////////// oss ///////////////
+
+    api(name: 'AdlBase-2026-03-10', ext: 'aar')
+    api(name: 'NzAuthCore-v2.0.1-2026-02-02', ext: 'aar')
+
+    api ("com.ssp:ssp-common-oss-android:1.1.1@aar")
+
+}

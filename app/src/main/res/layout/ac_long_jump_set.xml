@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_black">
+
+    <com.ai.jump.lib.SportLongJumpSetLayout
+        android:id="@+id/long_jump_set_layout"
+        android:layout_width="1280px"
+        android:layout_height="720px"
+        android:layout_centerVertical="true" />
+
+    <LinearLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/long_jump_set_layout"
+        android:background="@color/WHITE"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/bnt_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换方向" />
+
+        <Button
+            android:id="@+id/bnt_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存参数" />
+
+        <CheckBox
+            android:id="@+id/bnt_auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自动识别" />
+
+        <CheckBox
+            android:id="@+id/bnt_rule_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="起跳踩线" />
+
+        <CheckBox
+            android:id="@+id/bnt_rule_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手触底" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bnt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="退出"
+        android:textSize="@dimen/text_size_16" />
+
+</RelativeLayout>

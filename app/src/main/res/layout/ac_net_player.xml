@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_black">
+
+    <FrameLayout
+        android:id="@+id/left_layout"
+        android:layout_width="640px"
+        android:layout_height="360px">
+
+        <SurfaceView
+            android:id="@+id/surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/right_layout"
+        android:layout_width="640px"
+        android:layout_height="360px"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/left_layout">
+
+        <SurfaceView
+            android:id="@+id/surface_view_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bnt_start_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="启动" />
+
+        <Button
+            android:id="@+id/bnt_s_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="播放" />
+
+        <Button
+            android:id="@+id/bnt_s_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换" />
+
+        <Button
+            android:id="@+id/bnt_s_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下一帧" />
+
+        <Button
+            android:id="@+id/bnt_start_client_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="48dp"
+            android:text="客户1" />
+
+        <Button
+            android:id="@+id/bnt_c_send_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送消息" />
+
+        <Button
+            android:id="@+id/bnt_start_client_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="48dp"
+            android:text="客户2" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
+
+    <Button
+        android:id="@+id/bnt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="退出"
+        android:textSize="@dimen/text_size_16" />
+
+</RelativeLayout>

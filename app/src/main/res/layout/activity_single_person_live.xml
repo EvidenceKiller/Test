@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_black">
+
+    <FrameLayout
+        android:id="@+id/left_layout"
+        android:layout_width="1920px"
+        android:layout_height="1080px">
+
+        <com.adl.lib.AdlCameraPreviewView
+            android:id="@+id/camera_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.adl.base.overlay.SportOverlayMultiRegion
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="#f5f5f5"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <RadioButton
+                android:id="@+id/radioButton120"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杆120" />
+
+            <RadioButton
+                android:id="@+id/radioButton130"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杆130" />
+
+            <RadioButton
+                android:id="@+id/radioButton140"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杆140" />
+
+            <RadioButton
+                android:id="@+id/radioButton150"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="杆150" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/radioGroup"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/bnt_init"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="场地构建"
+                android:textSize="@dimen/text_size_16" />
+
+            <Button
+                android:id="@+id/bnt_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="运动开始"
+                android:textSize="@dimen/text_size_16" />
+
+            <Button
+                android:id="@+id/bnt_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="运动结束"
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/toggle_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/button_layout"
+            android:layout_marginTop="8dp">
+
+            <ToggleButton
+                android:id="@+id/toggle_45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:textOn="45度检测开"
+                android:textOff="45度检测关"
+                android:checked="true" />
+
+            <ToggleButton
+                android:id="@+id/toggle_shoulder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:textOn="肩部检测开"
+                android:textOff="肩部检测关"
+                android:checked="true" />
+
+            <ToggleButton
+                android:id="@+id/toggle_toe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:textOn="脚尖检测开"
+                android:textOff="脚尖检测关"
+                android:checked="true" />
+
+            <ToggleButton
+                android:id="@+id/toggle_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:textOn="录制视频开"
+                android:textOff="录制视频关"
+                android:checked="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_toRightOf="@+id/radioGroup"
+            android:gravity="start">
+
+            <TextView
+                android:id="@+id/score_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="斜身检测中"
+                android:textColor="#000000"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/info_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textColor="#000000"
+                android:textSize="@dimen/text_size_16" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bnt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="退出"
+        android:textSize="@dimen/text_size_16" />
+
+</RelativeLayout>

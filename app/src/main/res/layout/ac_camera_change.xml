@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_black">
+
+    <FrameLayout
+        android:id="@+id/left_layout"
+        android:layout_width="640px"
+        android:layout_height="360px"
+        android:layout_marginTop="16dp">
+
+        <com.adl.lib.AdlCameraPreviewView
+            android:id="@+id/preview_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.adl.base.overlay.SportOverlayRopeSkip
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/right_layout"
+        android:layout_width="640px"
+        android:layout_height="360px"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@id/left_layout">
+
+        <com.adl.lib.AdlCameraPreviewView
+            android:id="@+id/preview_view_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.adl.base.overlay.SportOverlayRopeSkip
+            android:id="@+id/overlay_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bnt_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换" />
+
+        <Button
+            android:id="@+id/bnt_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bnt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="退出"
+        android:textSize="@dimen/text_size_16" />
+
+</RelativeLayout>

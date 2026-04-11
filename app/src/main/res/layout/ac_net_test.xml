@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_black">
+
+
+    <Button
+        android:id="@+id/bnt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="退出"
+        android:textSize="@dimen/text_size_16" />
+
+    <Button
+        android:id="@+id/bnt_start_server"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="开启服务端"
+        android:textSize="@dimen/text_size_16" />
+    <Button
+        android:id="@+id/bnt_start_client"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="开启客户端"
+        android:textSize="@dimen/text_size_16" />
+
+    <Button
+        android:id="@+id/bnt_send_to_server"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="发送消息到服务端"
+        android:textSize="@dimen/text_size_16" />
+    <Button
+        android:id="@+id/bnt_send_to_client"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="发送消息到客户端"
+        android:textSize="@dimen/text_size_16" />
+</LinearLayout>

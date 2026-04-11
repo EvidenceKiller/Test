@@ -1,0 +1,113 @@
+{
+"httpConnTimeout":3000,
+"httpReadTimeout":10000,
+"effectiveConfig":"saasDebug",
+"againUploadTimes":5,
+"localFileMaxSaveTime":30,
+"freeSpaceNotice":3000,
+"useLocalize":false,
+"saasDebug":{
+	"auth":{
+		"enableDebug":true,
+		"authHost":"http://112.19.167.50:18005/gateway/api/device/auth",
+		"busHost":"http://112.19.167.50:18082/gateway/api",
+		"authHostV3":"",
+		"busHostV3":"",
+		"deviceType":"master",
+		"backGroundPath":"",
+		"logoPath":""
+	},
+	"business":{
+		"enableDebug":true,
+		"rootPath":"com.adl.sport",
+		"busHost":"http://172.16.0.206:8082/gateway/api",
+		"busHostV3":"",
+		"ossType":"oss",
+		"busType":"k12",
+		"qnHost":"http://172.16.0.206:8082/gateway/api",
+		"qnBucket":"adl-publicres",
+		"qnPrefix":"https://f.nezhasport.com/",
+		"ossConfigHost":"http://172.16.0.206:8082/gateway/api/busi/oss/v1/config",
+		"ossTokenHost":"http://172.16.0.206:8082/gateway/api/busi/oss/v1/token",
+		"ossBucket":""
+	}
+},
+"saasRelease":{
+	"auth":{
+		"enableDebug":true,
+		"authHost":"http://112.19.167.50:18005/gateway/api/device/auth",
+		"busHost":"http://112.19.167.50:18082/gateway/api",
+		"authHostV3":"",
+		"busHostV3":"",
+		"deviceType":"master",
+		"backGroundPath":"",
+		"logoPath":""
+	},
+	"business":{
+		"enableDebug":true,
+		"rootPath":"com.adl.sport",
+		"busHost":"https://ssp.nezhasport.com/gateway/api",
+		"busHostV3":"",
+		"ossType":"oss",
+		"busType":"k12",
+		"qnHost":"https://ssp.nezhasport.com/gateway/api",
+		"qnBucket":"adl-publicres",
+		"qnPrefix":"https://f.nezhasport.com/",
+		"ossConfigHost":"http://172.16.0.206:8082/gateway/api/busi/oss/v1/config",
+		"ossTokenHost":"http://172.16.0.206:8082/gateway/api/busi/oss/v1/token",
+		"ossBucket":""
+	}
+},
+"localDebug":{
+	"auth":{
+		"enableDebug":true,
+		"authHost":"http://127.0.0.1:18005/gateway/api/device/auth",
+		"busHost":"http://127.0.0.1:18082/gateway/api",
+		"authHostV3":"",
+		"busHostV3":"",
+		"deviceType":"master",
+		"backGroundPath":"",
+		"logoPath":""
+	},
+	"business":{
+		"enableDebug":true,
+		"rootPath":"com.adl.sport",
+		"busHost":"http://127.0.0.1:18003/gateway/api",
+		"busHostV3":"",
+		"ossType":"oss",
+		"busType":"k12",
+		"qnHost":"https://127.0.0.1/",
+		"qnBucket":"adl-publicres",
+		"qnPrefix":"https://f.nezhasport.com/",
+		"ossConfigHost":"http://172.16.0.206:8082/gateway/api/busi/oss/v1/config",
+		"ossTokenHost":"http://172.16.0.206:8082/gateway/api/busi/oss/v1/token",
+		"ossBucket":""
+	}
+},
+"localRelease":{
+	"auth":{
+		"enableDebug":true,
+		"authHost":"http://112.19.167.50:18005/gateway/api/device/auth",
+		"busHost":"http://112.19.167.50:18082/gateway/api",
+		"authHostV3":"",
+		"busHostV3":"",
+		"deviceType":"master",
+		"backGroundPath":"",
+		"logoPath":""
+	},
+	"business":{
+		"enableDebug":true,
+		"rootPath":"com.adl.sport",
+		"busHost":"http://172.16.0.206:8082/gateway/api",
+		"busHostV3":"",
+		"ossType":"oss",
+		"busType":"k12",
+		"qnHost":"https://127.0.0.1/",
+		"qnBucket":"adl-publicres",
+		"qnPrefix":"https://f.nezhasport.com/",
+		"ossConfigHost":"http://172.16.0.206:8082/gateway/api/busi/oss/v1/config",
+		"ossTokenHost":"http://172.16.0.206:8082/gateway/api/busi/oss/v1/token",
+		"ossBucket":""
+	}
+}
+}

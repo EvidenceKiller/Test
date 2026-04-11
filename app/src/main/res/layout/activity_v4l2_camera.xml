@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_black">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/left_layout"
+        android:layout_width="1920px"
+        android:layout_height="1080px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.adl.lib.AdlCameraPreviewView
+            android:id="@+id/preview_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tv_left_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="75dp"
+            android:text="0"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/text_size_80"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_left_angle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="0"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/text_size_80"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_left_count" />
+
+        <TextView
+            android:id="@+id/tv_right_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:layout_marginRight="30dp"
+            android:text="0"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/text_size_80"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_right_angle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:text="0"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/text_size_80"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_right_count" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <Button
+            android:id="@+id/bnt_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bnt_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重置"
+            app:layout_constraintLeft_toRightOf="@+id/bnt_start"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_open_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="打开摄像头"
+            app:layout_constraintLeft_toRightOf="@+id/bnt_reset"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_close_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关闭摄像头"
+            app:layout_constraintLeft_toRightOf="@+id/btn_open_camera"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/score_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/qb_px_24"
+            android:text="--个"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintLeft_toRightOf="@+id/btn_close_camera"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/info_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/qb_px_24"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintLeft_toRightOf="@+id/score_tv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_start_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始录像"
+            android:layout_marginLeft="@dimen/qb_px_24"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintLeft_toRightOf="@+id/info_tv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_stop_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="停止录像"
+            android:layout_marginLeft="@dimen/qb_px_24"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintLeft_toRightOf="@+id/btn_start_record"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/btn_get_power_line_frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取电流频率"
+            android:layout_marginLeft="@dimen/qb_px_24"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintLeft_toRightOf="@+id/btn_stop_record"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <Button
+            android:id="@+id/btn_set_power_line_frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置电流频率"
+            android:layout_marginLeft="@dimen/qb_px_24"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintLeft_toRightOf="@+id/btn_get_power_line_frequency"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <Button
+            android:id="@+id/bnt_auto_exposureTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自动曝光(自动)"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/bnt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="退出"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_fps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="30sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_infos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="20sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <com.ai.view.SeekBarView
+            android:id="@+id/sbv_brightness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.ai.view.SeekBarView
+            android:id="@+id/sbv_contrast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+        <com.ai.view.SeekBarView
+            android:id="@+id/sbv_saturation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+        <com.ai.view.SeekBarView
+            android:id="@+id/sbv_sharpness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+        <com.ai.view.SeekBarView
+            android:id="@+id/sbv_gain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+        <com.ai.view.SeekBarView
+            android:id="@+id/sbv_exposureTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

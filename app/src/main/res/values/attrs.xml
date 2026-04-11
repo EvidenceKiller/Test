@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BatteryView">
+        <attr name="battery_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="DropDownView">
+        <attr name="drop_title" format="string" />
+        <attr name="drop_content_default" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="InputSearchView">
+        <attr name="search_hint" format="string" />
+        <attr name="search_bg" format="reference" />
+        <attr name="search_padding_lr" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="FloatStatusView">
+        <attr name="float_title" format="string" />
+        <attr name="float_img" format="reference" />
+        <attr name="float_loading" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ReportItemView">
+        // 标准动作图片
+        <attr name="report_item_standard_bg" format="reference" />
+        <attr name="report_item_title" format="string" />
+        <attr name="report_show_good" format="boolean" />
+        <attr name="report_your_action_tag" format="string" />
+        <attr name="report_item_tag_type" format="integer">
+            // 优、良、差
+            <enum name="excellent_poor" value="11" />
+            // 达标、未达标
+            <enum name="reach_standard" value="12" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ReportHeadView">
+        <attr name="report_head_name" format="string" />
+        <attr name="report_head_value" format="string" />
+        <attr name="report_head_value_sub" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SemicircleProgressView">
+        <attr name="semicircle_size" format="dimension" />
+        <attr name="semicircle_background_line_color" format="color" />
+        <attr name="semicircle_title_color" format="color" />
+        <attr name="semicircle_subtitle_color" format="color" />
+        <attr name="semicircle_line_size" format="dimension" />
+        <attr name="semicircle_title_size" format="dimension" />
+        <attr name="semicircle_subtitle_size" format="dimension" />
+        <attr name="semicircle_title_text" format="string" />
+        <attr name="semicircle_subtitle_text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="LineChartView">
+        <!--折线的颜色-->
+        <attr name="lineColor" format="color" />
+        <!--Y轴距离view长度-->
+        <attr name="leftInterval" format="dimension" />
+        <!--X轴距离view底部的高度-->
+        <attr name="bottomInterval" format="dimension" />
+        <!--X轴距离view顶部长度-->
+        <attr name="topInterval" format="dimension" />
+        <!--轴字体的大小-->
+        <attr name="axisFontSize" format="dimension" />
+    </declare-styleable>
+
+    <style name="NoTitleDialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+</resources>
