@@ -1,7 +1,5 @@
 package com.adl.service.http.cache;
 
-import com.adl.service.entity.CacheEntry;
-
 public interface IHttpCache {
 
     /**

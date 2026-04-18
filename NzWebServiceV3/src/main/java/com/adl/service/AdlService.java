@@ -11,41 +11,23 @@ import com.adl.service.caller.BusinessCaller;
 import com.adl.service.caller.CommonInfoCaller;
 import com.adl.service.caller.LoginAuthCaller;
 import com.adl.service.caller.OperationCaller;
-import com.adl.service.caller.OpsMaintCaller;
 import com.adl.service.caller.OrgTestCaller;
 import com.adl.service.caller.SportInfoCaller;
 import com.adl.service.common.BaseService;
 import com.adl.service.common.FileDownManager;
-import com.adl.service.common.FileUtil;
+import com.adl.service.utils.FileUtil;
 import com.adl.service.common.IDefine;
 import com.adl.service.common.InnerPreferences;
 import com.adl.service.common.NzConfig;
 import com.adl.service.common.NzConfigBusiness;
 import com.adl.service.common.NzConfigNode;
-import com.adl.service.db.CitizenDao;
 import com.adl.service.db.DaoManagerProxy;
-import com.adl.service.db.DictDao;
-import com.adl.service.db.FileDownDao;
-import com.adl.service.db.FileUploadDao;
-import com.adl.service.db.MeetDao;
-import com.adl.service.db.MeetGroupDetailsDao;
-import com.adl.service.db.MeetGroupTeamDao;
-import com.adl.service.db.PlanDao;
-import com.adl.service.db.PlanStudentDao;
-import com.adl.service.db.RecordLocalDao;
-import com.adl.service.db.RecordUploadDao;
-import com.adl.service.db.SceneDao;
-import com.adl.service.db.SceneSportDao;
-import com.adl.service.db.StandardConfigDao;
-import com.adl.service.db.StudentDao;
-import com.adl.service.db.TeacherDao;
-import com.adl.service.db.TeacherSportDao;
 import com.adl.service.internal.RetrofitManager;
 import com.adl.service.internal.RxCallbackScheduler;
 import com.adl.service.internal.SubscriptionManager;
 import com.adl.service.log.NzLog;
 import com.adl.service.upload.OssFileUploadService;
-import com.adl.service.web.request.RequestScope;
+import com.adl.service.http.request.RequestScope;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -68,7 +50,6 @@ public final class AdlService {
     /** 懒加载、双重检查锁定的单例 */
     private static volatile AdlService _instance;
     private ConfigService mConfig;
-    private DaoManagerProxy mDaoManagerProxy;
     private Context mContext;
     private String orgId;
     private NzConfig mNzConfig;
@@ -86,7 +67,7 @@ public final class AdlService {
         // preferences 存储
         InnerPreferences pf = InnerPreferences.instance();
         pf.init(context);
-        mDaoManagerProxy = DaoManagerProxy.create(context);
+        DaoManagerProxy.init(context);
     }
 
     public static AdlService create(Context context) {
@@ -108,10 +89,6 @@ public final class AdlService {
         return mContext;
     }
 
-    /** 数据库访问代理 **/
-    public DaoManagerProxy getDaoManagerProxy() {
-        return mDaoManagerProxy;
-    }
 
     public AdlService setDebug(boolean debug) {
         mConfig.setDebug(debug);
@@ -234,10 +211,6 @@ public final class AdlService {
 
     public BigScreenH5Caller getBigScreenH5Caller() {
         return RetrofitManager.getInstance().getBigScreenH5Caller();
-    }
-
-    public OpsMaintCaller getOpsMaintCaller() {
-        return RetrofitManager.getInstance().getOpsMaintCaller();
     }
 
     // ===================================================

@@ -5,7 +5,7 @@ package com.adl.service.exception;
  */
 public final class NzEmptyDataException extends NzBaseException {
 
-    public static final String CODE = "NZ_EMPTY_DATA_EXCEPTION";
+    private static final String CODE = "NZ_EMPTY_DATA_EXCEPTION";
 
     public NzEmptyDataException(String message) {
         super(CODE, message);

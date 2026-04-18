@@ -5,7 +5,7 @@ package com.adl.service.exception;
  */
 public final class NzNetworkException extends NzBaseException {
 
-    public static final String CODE = "NZ_NETWORK_EXCEPTION";
+    private static final String CODE = "NZ_NETWORK_EXCEPTION";
 
     private final int httpCode;
 

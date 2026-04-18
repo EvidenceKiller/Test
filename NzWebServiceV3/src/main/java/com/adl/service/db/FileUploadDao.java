@@ -1,6 +1,6 @@
 package com.adl.service.db;
 
-import com.adl.service.entity.FileUploadInfoEntity;
+import com.adl.service.db.entity.FileUploadInfoEntity;
 
 import java.util.List;
 

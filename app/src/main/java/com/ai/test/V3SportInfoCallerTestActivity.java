@@ -9,19 +9,17 @@ import android.widget.TextView;
 
 import com.adl.service.AdlService;
 import com.adl.service.callback.RequestCallback;
-import com.adl.service.web.request.AccountRecordPageRequest;
-import com.adl.service.web.request.OrgRecordPageRequest;
-import com.adl.service.web.request.ReportNfSportRequest;
-import com.adl.service.web.request.ReportStudentCompetitionRequest;
-import com.adl.service.web.request.ReportStudentMeetRequest;
-import com.adl.service.web.request.ReportStudentPlanRequest;
-import com.adl.service.web.request.ReportStudentSportRequest;
-import com.adl.service.web.request.ReportTeacherSportRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.response.AccountRecordData;
-import com.adl.service.web.response.AccountRecordPageData;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.OrgRecordData;
+import com.adl.service.http.request.AccountRecordPageRequest;
+import com.adl.service.http.request.OrgRecordPageRequest;
+import com.adl.service.http.request.ReportStudentCompetitionRequest;
+import com.adl.service.http.request.ReportStudentMeetRequest;
+import com.adl.service.http.request.ReportStudentPlanRequest;
+import com.adl.service.http.request.ReportStudentSportRequest;
+import com.adl.service.http.request.ReportTeacherSportRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.data.AccountRecordData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.OrgRecordData;
 import com.adl.ts.general.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,8 +57,6 @@ public class V3SportInfoCallerTestActivity extends AppCompatActivity {
         createButton("reportStudentCompetitionSync").setOnClickListener(v -> reportStudentCompetitionSync());
         createButton("reportStudentAllSportAsync").setOnClickListener(v -> reportStudentAllSportAsync());
         createButton("reportStudentAllSportSync").setOnClickListener(v -> reportStudentAllSportSync());
-        createButton("reportNfSportAsync").setOnClickListener(v -> reportNfSportAsync());
-        createButton("reportNfSportSync").setOnClickListener(v -> reportNfSportSync());
         createButton("getOrgRecordPageAsync").setOnClickListener(v -> getOrgRecordPageAsync());
         createButton("getOrgRecordPageSync").setOnClickListener(v -> getOrgRecordPageSync());
         createButton("getAccountRecordPageAsync").setOnClickListener(v -> getAccountRecordPageAsync());
@@ -68,31 +64,43 @@ public class V3SportInfoCallerTestActivity extends AppCompatActivity {
     }
 
     private ReportStudentSportRequest buildReportStudentSportRequest() {
-        return ReportStudentSportRequest.builder("1965665142485622785", "101101", 0, 10L, "123456789", "234567890", "Succeed", "0401010001", "0401010001", "temp", 100000L).build();
+        return ReportStudentSportRequest.builder(
+                "9901060001", "1965665142485622785", "101101", 0, 10L, "1776082153044", "1776082213054",
+                "50", "1001", "4301010001", "temp", 60000L)
+                .build();
     }
 
     private ReportTeacherSportRequest buildReportTeacherSportRequest() {
-        return ReportTeacherSportRequest.builder("1965665142485622785", "101101", "", 0, 10L, "123456789", "234567890", "Succeed", "0401010001", "0401010001", "temp", 100000L).build();
+        return ReportTeacherSportRequest.builder(
+                "1965665142485622785", "101101", "test1111", 0, 10L, "1776082153044", "1776082213054",
+                "50", "1001", "4301010001", "temp", 60000L)
+                .build();
     }
 
     private ReportStudentMeetRequest buildReportStudentMeetRequest() {
-        return ReportStudentMeetRequest.builder("1965665142485622785", "101101", 0, 10L, "123456789", "234567890", "Succeed", "0401010001", "0401010001", "temp", 100000L).build();
+        return ReportStudentMeetRequest.builder(
+                "1965665142485622785", "101101", 0, 10L, "1776082153044", "1776082213054",
+                "50", "1001", "4301010001", "temp", 60000L)
+                .build();
     }
 
     private ReportStudentPlanRequest buildReportStudentPlanRequest() {
-        return ReportStudentPlanRequest.builder("1965665142485622785", "101101", 0, 10L, "123456789", "234567890", "Succeed", "0401010001", "0401010001", "temp", 100000L).build();
+        return ReportStudentPlanRequest.builder(
+                "1965665142485622785", "101101", 0, 10L, "1776082153044", "1776082213054",
+                "50", "1001", "4301010001", "temp", 60000L)
+                .build();
     }
 
     private ReportStudentCompetitionRequest buildReportStudentCompetitionRequest() {
-        return ReportStudentCompetitionRequest.builder("1965665142485622785", "101101", 0, 10L, "123456789", "234567890", "Succeed", "0401010001", "0401010001", "temp", 100000L).build();
-    }
-
-    private ReportNfSportRequest buildReportNfSportRequest() {
-        return ReportNfSportRequest.builder("1965665142485622785", "101101", 0, 10L, "123456789", "234567890", "Succeed", "0401010001", "0401010001", "temp", 100000L).build();
+        return ReportStudentCompetitionRequest.builder(
+                "1965665142485622785", "101101", 0, 10L, "1776082153044", "1776082213054",
+                "50", "1001", "4301010001", "temp", 60000L)
+                .build();
     }
 
     private AccountRecordPageRequest buildAccountRecordPageRequest() {
-        return AccountRecordPageRequest.builder().build();
+        AccountRecordPageRequest request = AccountRecordPageRequest.builder().foreceUpdate(true).pageSize(10L).semesterId("101101").build();
+        return request;
     }
 
     private RequestCallback<Boolean> booleanCallback(String methodName) {
@@ -203,17 +211,6 @@ public class V3SportInfoCallerTestActivity extends AppCompatActivity {
         AdlService.getService().executeSyncOnIo(RequestScope.of(this),
                 () -> AdlService.getService().getSportInfoCaller().reportStudentAllSportSync(buildReportStudentSportRequest()),
                 booleanCallback("reportStudentAllSportSync"));
-    }
-
-    private void reportNfSportAsync() {
-        AdlService.getService().getSportInfoCaller().reportNfSportAsync(
-                RequestScope.of(this), buildReportNfSportRequest(), booleanCallback("reportNfSportAsync"));
-    }
-
-    private void reportNfSportSync() {
-        AdlService.getService().executeSyncOnIo(RequestScope.of(this),
-                () -> AdlService.getService().getSportInfoCaller().reportNfSportSync(buildReportNfSportRequest()),
-                booleanCallback("reportNfSportSync"));
     }
 
     private void getOrgRecordPageAsync() {

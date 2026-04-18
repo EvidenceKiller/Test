@@ -1,14 +1,9 @@
 package com.ai.test;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.adl.auth.core.AdlAuthFactory;
-import com.adl.service.common.FileUtil;
+import com.adl.service.utils.FileUtil;
 import com.adl.ts.general.R;
 
 import java.io.File;
@@ -30,7 +25,6 @@ public class V3InterfaceTestActivity extends BaseActivity {
         findViewById(R.id.btn_6).setOnClickListener(v -> startActivity(new Intent(this, V3LoginAuthCallerTestActivity.class)));
         findViewById(R.id.btn_7).setOnClickListener(v -> startActivity(new Intent(this, V3BigScreenStatsCallerTestActivity.class)));
         findViewById(R.id.btn_8).setOnClickListener(v -> startActivity(new Intent(this, V3BigScreenH5CallerTestActivity.class)));
-        findViewById(R.id.btn_9).setOnClickListener(v -> startActivity(new Intent(this, V3OpsMaintCallerTestActivity.class)));
 
     }
 

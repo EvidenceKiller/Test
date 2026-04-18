@@ -1,6 +1,6 @@
 package com.adl.service.db;
 
-import com.adl.service.entity.SportPlanEntity;
+import com.adl.service.db.entity.PlanEntity;
 
 import java.util.List;
 
@@ -19,39 +19,39 @@ import androidx.room.Query;
 public interface PlanDao {
 
     @Query("select * from _sport_plan")
-    List<SportPlanEntity> getAll();
+    List<PlanEntity> getAll();
 
     @Query("select * from _sport_plan limit :noOfRows,:rowNum")
-    List<SportPlanEntity> getAllByPage(int noOfRows, int rowNum);
+    List<PlanEntity> getAllByPage(int noOfRows, int rowNum);
 
     @Query("select * from _sport_plan where _start_time > strftime('%s','now')*1000")
-    List<SportPlanEntity> queryPlanStatusNew();
+    List<PlanEntity> queryPlanStatusNew();
 
     @Query("select * from _sport_plan where _start_time > strftime('%s','now')*1000 limit :noOfRows,:rowNum")
-    List<SportPlanEntity> queryPlanStatusNewByPage(int noOfRows, int rowNum);
+    List<PlanEntity> queryPlanStatusNewByPage(int noOfRows, int rowNum);
 
     @Query("select * from _sport_plan where (strftime('%s','now')*1000 between _start_time and _end_time)")
-    List<SportPlanEntity> queryPlanStatusDoing();
+    List<PlanEntity> queryPlanStatusDoing();
 
     @Query("select * from _sport_plan where (strftime('%s','now')*1000 between _start_time and _end_time) limit :noOfRows,:rowNum")
-    List<SportPlanEntity> queryPlanStatusDoingByPage(int noOfRows, int rowNum);
+    List<PlanEntity> queryPlanStatusDoingByPage(int noOfRows, int rowNum);
 
     @Query("select * from _sport_plan where _end_time < strftime('%s','now')*1000")
-    List<SportPlanEntity> queryPlanStatusDone();
+    List<PlanEntity> queryPlanStatusDone();
 
     @Query("select * from _sport_plan where _end_time < strftime('%s','now')*1000 limit :noOfRows,:rowNum")
-    List<SportPlanEntity> queryPlanStatusDoneByPage(int noOfRows, int rowNum);
+    List<PlanEntity> queryPlanStatusDoneByPage(int noOfRows, int rowNum);
 
     @Query("select * from _sport_plan where _plan_id = :planId limit 1")
-    SportPlanEntity queryPlanById(String planId);
+    PlanEntity queryPlanById(String planId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<SportPlanEntity> list);
+    void insertPlanList(List<PlanEntity> list);
 
     @Query("delete from _sport_plan")
     void clearAll();
 
     @Query("select * from _sport_plan WHERE (:planStatus='' or :planStatus='0' or _status=:planStatus) LIMIT :pageIndex,:pageSize")
-    List<SportPlanEntity> getByPage(int pageIndex, int pageSize, String planStatus);
+    List<PlanEntity> getByPage(int pageIndex, int pageSize, String planStatus);
 
 }

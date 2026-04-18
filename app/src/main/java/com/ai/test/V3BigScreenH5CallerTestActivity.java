@@ -9,16 +9,16 @@ import android.widget.TextView;
 
 import com.adl.service.AdlService;
 import com.adl.service.callback.RequestCallback;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.SunshineRunningCompetitionRecordPageRequest;
-import com.adl.service.web.request.SunshineRunningSportDetailPageRequest;
-import com.adl.service.web.request.TeachCourseButtonClickCountRequest;
-import com.adl.service.web.request.TeachCourseDataDatesRequest;
-import com.adl.service.web.request.TeachCourseRequest;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.ClassroomCompetitionRecordData;
-import com.adl.service.web.response.SunshineRunningSportDetailData;
-import com.adl.service.web.response.TeachCourseDetailData;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.SunshineRunningCompetitionRecordPageRequest;
+import com.adl.service.http.request.SunshineRunningSportDetailPageRequest;
+import com.adl.service.http.request.TeachCourseButtonClickCountRequest;
+import com.adl.service.http.request.TeachCourseDataDatesRequest;
+import com.adl.service.http.request.TeachCourseRequest;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.ClassroomCompetitionRecordData;
+import com.adl.service.data.SunshineRunningSportDetailData;
+import com.adl.service.data.TeachCourseDetailData;
 import com.adl.ts.general.R;
 
 import java.util.List;
@@ -50,8 +50,8 @@ public class V3BigScreenH5CallerTestActivity extends AppCompatActivity {
         createButton("getTeachCourseDataDatesSync").setOnClickListener(v -> getTeachCourseDataDatesSync());
         createButton("getTeachCourseTimesAsync").setOnClickListener(v -> getTeachCourseTimesAsync());
         createButton("getTeachCourseTimesSync").setOnClickListener(v -> getTeachCourseTimesSync());
-        createButton("getTeachCourseButtonClickCountAsync").setOnClickListener(v -> getTeachCourseButtonClickCountAsync());
-        createButton("getTeachCourseButtonClickCountSync").setOnClickListener(v -> getTeachCourseButtonClickCountSync());
+        createButton("getTeachCourseButtonClickCountAsync").setOnClickListener(v -> getTeachCourseButtonClickableAsync());
+        createButton("getTeachCourseButtonClickCountSync").setOnClickListener(v -> getTeachCourseButtonClickableSync());
         createButton("getSunshineRunningSportDetailPageAsync").setOnClickListener(v -> getSunshineRunningSportDetailPageAsync());
         createButton("getSunshineRunningSportDetailPageSync").setOnClickListener(v -> getSunshineRunningSportDetailPageSync());
         createButton("getSunshineRunningCompetitionRecordPageAsync").setOnClickListener(v -> getSunshineRunningCompetitionRecordPageAsync());
@@ -59,7 +59,7 @@ public class V3BigScreenH5CallerTestActivity extends AppCompatActivity {
     }
 
     private TeachCourseRequest buildTeachCourseRequest() {
-        return TeachCourseRequest.builder()
+        return TeachCourseRequest.builder("2011254439800274944", "1776082153044")
                 .build();
     }
 
@@ -69,18 +69,18 @@ public class V3BigScreenH5CallerTestActivity extends AppCompatActivity {
     }
 
     private TeachCourseButtonClickCountRequest buildTeachCourseButtonClickCountRequest() {
-        return TeachCourseButtonClickCountRequest.builder("123", "123456789").build();
+        return TeachCourseButtonClickCountRequest.builder("2011254439800274944", "1776082153044").build();
     }
 
     private SunshineRunningSportDetailPageRequest buildSunshineRunningSportDetailPageRequest() {
-        return SunshineRunningSportDetailPageRequest.builder()
+        return SunshineRunningSportDetailPageRequest.builder("1776082153044")
                 .build();
     }
 
     private SunshineRunningCompetitionRecordPageRequest buildSunshineRunningCompetitionRecordPageRequest() {
         return SunshineRunningCompetitionRecordPageRequest.builder()
-                .orgId("1858352135200641024")
-                .classId("12345679")
+                .orgId("T000190518")
+                .classId("2011254439800274944")
                 .build();
     }
 
@@ -251,56 +251,56 @@ public class V3BigScreenH5CallerTestActivity extends AppCompatActivity {
                 });
     }
 
-    private void getTeachCourseButtonClickCountAsync() {
+    private void getTeachCourseButtonClickableAsync() {
         TeachCourseButtonClickCountRequest request = buildTeachCourseButtonClickCountRequest();
-        AdlService.getService().getBigScreenH5Caller().getTeachCourseButtonClickCountAsync(RequestScope.of(this), request, new RequestCallback<Boolean>() {
+        AdlService.getService().getBigScreenH5Caller().getTeachCourseButtonClickableAsync(RequestScope.of(this), request, new RequestCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean data) {
                 if (data != null) {
-                    Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickCountAsync::onSuccess : data : " + data);
+                    Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickableAsync::onSuccess : data : " + data);
                     resultView.setText(String.valueOf(data));
                 } else {
-                    Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickCountAsync::onSuccess : data is null");
+                    Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickableAsync::onSuccess : data is null");
                 }
             }
 
             @Override
             public void onFail(int code, String msg) {
-                Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickCountAsync::onFail : code : " + code + ", msg : " + msg);
+                Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickableAsync::onFail : code : " + code + ", msg : " + msg);
                 resultView.setText(msg);
             }
 
             @Override
             public void onError(String error) {
-                Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickCountAsync::onError : error : " + error);
+                Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickableAsync::onError : error : " + error);
                 resultView.setText(error);
             }
         });
     }
 
-    private void getTeachCourseButtonClickCountSync() {
+    private void getTeachCourseButtonClickableSync() {
         AdlService.getService().executeSyncOnIo(RequestScope.of(this),
-                () -> AdlService.getService().getBigScreenH5Caller().getTeachCourseButtonClickCountSync(buildTeachCourseButtonClickCountRequest()),
+                () -> AdlService.getService().getBigScreenH5Caller().getTeachCourseButtonClickableSync(buildTeachCourseButtonClickCountRequest()),
                 new RequestCallback<Boolean>() {
                     @Override
                     public void onSuccess(Boolean data) {
                         if (data != null) {
-                            Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickCountSync::onSuccess : data : " + data);
+                            Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickableSync::onSuccess : data : " + data);
                             resultView.setText(String.valueOf(data));
                         } else {
-                            Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickCountSync::onSuccess : data is null");
+                            Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickableSync::onSuccess : data is null");
                         }
                     }
 
                     @Override
                     public void onFail(int code, String msg) {
-                        Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickCountSync::onFail : code : " + code + ", msg : " + msg);
+                        Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickableSync::onFail : code : " + code + ", msg : " + msg);
                         resultView.setText(msg);
                     }
 
                     @Override
                     public void onError(String error) {
-                        Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickCountSync::onError : error : " + error);
+                        Log.d(TAG, "BigScreenH5CallerTestActivity::getTeachCourseButtonClickableSync::onError : error : " + error);
                         resultView.setText(error);
                     }
                 });

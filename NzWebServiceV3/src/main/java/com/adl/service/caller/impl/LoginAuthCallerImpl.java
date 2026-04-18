@@ -6,11 +6,11 @@ import com.adl.service.caller.LoginAuthCaller;
 import com.adl.service.exception.NzBaseException;
 import com.adl.service.internal.RxCallbackScheduler;
 import com.adl.service.internal.SubscriptionManager;
-import com.adl.service.web.request.LoginRequest;
-import com.adl.service.web.request.LogoutRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.response.LoginData;
-import com.adl.service.web.service.LoginAuthService;
+import com.adl.service.http.request.LoginRequest;
+import com.adl.service.http.request.LogoutRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.data.LoginData;
+import com.adl.service.web.LoginAuthService;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 
@@ -27,7 +27,7 @@ public final class LoginAuthCallerImpl implements LoginAuthCaller {
 
     @Override
     public long loginAsync(RequestScope scope, LoginRequest request, RequestCallback<LoginData> callback) {
-        CallerScopeUtils.requireScope(scope);
+        CallerUtil.assertScope(scope);
         Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(loginAuthService.login(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
@@ -35,12 +35,12 @@ public final class LoginAuthCallerImpl implements LoginAuthCaller {
 
     @Override
     public LoginData loginSync(LoginRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetData(loginAuthService.login(request));
+        return RxCallbackScheduler.blockingGetFromResponse(loginAuthService.login(request));
     }
 
     @Override
     public long logoutAsync(RequestScope scope, LogoutRequest request, RequestCallback<String> callback) {
-        CallerScopeUtils.requireScope(scope);
+        CallerUtil.assertScope(scope);
         Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(loginAuthService.logout(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
@@ -48,6 +48,6 @@ public final class LoginAuthCallerImpl implements LoginAuthCaller {
 
     @Override
     public String logoutSync(LogoutRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetData(loginAuthService.logout(request));
+        return RxCallbackScheduler.blockingGetFromResponse(loginAuthService.logout(request));
     }
 }

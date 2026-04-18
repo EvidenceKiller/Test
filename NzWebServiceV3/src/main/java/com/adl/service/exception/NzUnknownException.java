@@ -5,7 +5,7 @@ package com.adl.service.exception;
  */
 public final class NzUnknownException extends NzBaseException {
 
-    public static final String CODE = "NZ_UNKNOWN_EXCEPTION";
+    private static final String CODE = "NZ_UNKNOWN_EXCEPTION";
 
     public NzUnknownException(String message) {
         super(CODE, message);

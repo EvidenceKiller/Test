@@ -48,9 +48,11 @@ public interface IDefine {
     String LoginOrgInfo = "_login_org_info";
 
     // 上次更新时间
-    String LastStudentUpdateTime = "_last_student_update_time";
-    String LastTeacherUpdateTime = "_last_teacher_update_time";
-    String LastCitizenUpdateTime = "_last_citizen_update_time";
+    String LAST_STUDENT_UPDATE_TIME = "_last_student_update_time";
+    String LAST_TEACHER_UPDATE_TIME = "_last_teacher_update_time";
+    String LAST_CITIZEN_UPDATE_TIME = "_last_citizen_update_time";
+
+    long INVALID_TIME = -1L;
 
     // 文件下载类型
     int FileDownloadTypeVideo = 0; // 视频

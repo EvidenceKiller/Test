@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import com.adl.service.AdlService;
 import com.adl.service.callback.RequestCallback;
-import com.adl.service.web.request.LoginRequest;
-import com.adl.service.web.request.LogoutRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.response.LoginData;
+import com.adl.service.http.request.LoginRequest;
+import com.adl.service.http.request.LogoutRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.data.LoginData;
 import com.adl.ts.general.R;
 
 import androidx.appcompat.app.AppCompatActivity;

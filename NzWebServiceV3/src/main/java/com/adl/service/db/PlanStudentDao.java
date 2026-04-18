@@ -1,6 +1,6 @@
 package com.adl.service.db;
 
-import com.adl.service.entity.SportPlanStudentEntity;
+import com.adl.service.db.entity.PlanStudentEntity;
 
 import java.util.List;
 
@@ -19,50 +19,53 @@ import androidx.room.Query;
 public interface PlanStudentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<SportPlanStudentEntity> list);
+    void insertAll(List<PlanStudentEntity> list);
 
-    @Query("select count (*) from _sport_plan_student_1 where '' = :planId or _plan_id = :planId")
+    @Query("select count (*) from _plan_student where '' = :planId or _plan_id = :planId")
     int countSize(String planId);
 
-    @Query("select * from _sport_plan_student_1 where _plan_id = :planId")
-    List<SportPlanStudentEntity> queryStudentByPlanId(String planId);
+    @Query("select * from _plan_student where _plan_id = :planId")
+    List<PlanStudentEntity> queryStudentByPlanId(String planId);
 
-    @Query("select * from _sport_plan_student_1 where _plan_id = :planId limit :noOfRows,:rowNum")
-    List<SportPlanStudentEntity> queryStudentByPlanId(int noOfRows, int rowNum, String planId);
+    @Query("select * from _plan_student where _plan_id = :planId limit :noOfRows,:rowNum")
+    List<PlanStudentEntity> queryStudentByPlanId(int noOfRows, int rowNum, String planId);
 
-    @Query("select _account_id from _sport_plan_student_1 where _plan_id = :planId")
+    @Query("select _account_id from _plan_student where _plan_id = :planId")
     List<String> queryAccountIdByPlanId(String planId);
 
-    @Query("select _account_id from _sport_plan_student_1 where _plan_id = :planId limit :noOfRows,:rowNum")
+    @Query("select _account_id from _plan_student where _plan_id = :planId limit :noOfRows,:rowNum")
     List<String> queryAccountIdByPlanId(int noOfRows, int rowNum, String planId);
 
-    @Query("delete from _sport_plan_student_1 where _plan_id = :planId")
+    @Query("delete from _plan_student where _plan_id = :planId")
     void clearStudentByPlanId(String planId);
 
-    @Query("delete from _sport_plan_student_1")
+    @Query("delete from _plan_student")
     void clearAll();
 
-    @Query("select _account_id from _sport_plan_student_1 where _plan_id = :planId AND _admission_num like '%' || :admissionNum || '%'")
+    @Query("delete from _plan_student where _plan_id = :planId")
+    void clearByPlanId(String planId);
+
+    @Query("select _account_id from _plan_student where _plan_id = :planId AND _admission_num like '%' || :admissionNum || '%'")
     List<String> queryAccountIdByPlanIdAdnAdmission(String planId, String admissionNum);
 
-    @Query("select _account_id from _sport_plan_student_1 where _plan_id = :planId AND _account_id in (:accountIds)")
+    @Query("select _account_id from _plan_student where _plan_id = :planId AND _account_id in (:accountIds)")
     List<String> queryAccountIdByPlanIdAdnIds(String planId, List<String> accountIds);
 
-    @Query("select * from _sport_plan_student_1 where _plan_id = :planId AND _account_id =:accountId")
-    List<SportPlanStudentEntity> queryAccountIdByPlanIdAdnId(String planId, String accountId);
+    @Query("select * from _plan_student where _plan_id = :planId AND _account_id =:accountId")
+    List<PlanStudentEntity> queryAccountIdByPlanIdAdnId(String planId, String accountId);
 
-    @Query("select * from _sport_plan_student_1 where _plan_id = :planId AND (_student_name like '%'|| :studentName || '%')")
-    List<SportPlanStudentEntity> queryStudentByStudentName(String planId, String studentName);
+    @Query("select * from _plan_student where _plan_id = :planId AND (_student_name like '%'|| :studentName || '%')")
+    List<PlanStudentEntity> queryStudentByStudentName(String planId, String studentName);
 
-    @Query("select * from _sport_plan_student_1 where _account_id = :accountId limit 1")
-    SportPlanStudentEntity queryStudentByStudentName(String accountId);
+    @Query("select * from _plan_student where _account_id = :accountId limit 1")
+    PlanStudentEntity queryStudentByStudentName(String accountId);
 
-    @Query("select _account_id from _sport_plan_student_1 where _admission_num like '%' || :admissionNum || '%'")
+    @Query("select _account_id from _plan_student where _admission_num like '%' || :admissionNum || '%'")
     List<String> queryStudentByAdmissionNum(String admissionNum);
 
     /**
      * 通过studentCode 和studentNum 查询学生信息
      */
-    @Query("select _account_id from _sport_plan_student_1 where _plan_id = :planId and (_student_code = :codeOrNum or _student_num = :codeOrNum)")
+    @Query("select _account_id from _plan_student where _plan_id = :planId and (_student_code = :codeOrNum or _student_num = :codeOrNum)")
     List<String> queryStudentByStudentCodeAndNum(String planId, String codeOrNum);
 }

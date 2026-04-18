@@ -2,34 +2,32 @@ package com.adl.service.caller;
 
 import com.adl.service.callback.RequestCallback;
 import com.adl.service.exception.NzBaseException;
-import com.adl.service.web.request.BannerDetailListRequest;
-import com.adl.service.web.request.DeviceFocusListRequest;
-import com.adl.service.web.request.DictMapRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.SceneListRequest;
-import com.adl.service.web.request.SportSkuDetailRequest;
-import com.adl.service.web.request.SportSkuPageRequest;
-import com.adl.service.web.request.UploadDeviceNameRequest;
-import com.adl.service.web.request.WikiDetailRequest;
-import com.adl.service.web.request.WikiPageRequest;
-import com.adl.service.web.request.WikiTypePageRequest;
-import com.adl.service.web.response.BannerDetailData;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.DeviceFocusData;
-import com.adl.service.web.response.DictMapData;
-import com.adl.service.web.response.SceneData;
-import com.adl.service.web.response.SportSkuDetailData;
-import com.adl.service.web.response.SportSkuData;
-import com.adl.service.web.response.WikiData;
-import com.adl.service.web.response.WikiDetailData;
-import com.adl.service.web.response.WikiTypeData;
+import com.adl.service.http.request.BannerDetailListRequest;
+import com.adl.service.http.request.DeviceFocusListRequest;
+import com.adl.service.http.request.DictMapRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.SceneListRequest;
+import com.adl.service.http.request.SportSkuDetailRequest;
+import com.adl.service.http.request.SportSkuPageRequest;
+import com.adl.service.http.request.UploadDeviceNameRequest;
+import com.adl.service.data.BannerDetailData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.DeviceFocusData;
+import com.adl.service.data.DictMapData;
+import com.adl.service.data.SceneData;
+import com.adl.service.callback.GetPageResult;
+import com.adl.service.data.SportSkuDetailData;
+import com.adl.service.data.SportSkuData;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * OperationCaller。
  */
 public interface OperationCaller {
+
+    void reLoadAllSceneDataSync(Map<String, List<String>> map) throws NzBaseException;
 
     /**
      * 获取Banner详情列表
@@ -42,6 +40,10 @@ public interface OperationCaller {
      * <p>同步调用。</p>
      */
     List<BannerDetailData> getBannerDetailListSync(BannerDetailListRequest request) throws NzBaseException;
+
+    long getSportSkuPagesAllAsync(RequestScope scope, SportSkuPageRequest request, RequestCallback<GetPageResult> callback);
+
+    GetPageResult getSportSkuPagesAllSync(SportSkuPageRequest request) throws NzBaseException;
 
     /**
      * 获取项目库列表
@@ -90,42 +92,6 @@ public interface OperationCaller {
      * <p>同步调用。</p>
      */
     List<SceneData> getSceneListSync(SceneListRequest request) throws NzBaseException;
-
-    /**
-     * 获取百科分类列表
-     * <p>异步调用。</p>
-     */
-    long getWikiTypePageAsync(RequestScope scope, WikiTypePageRequest request, RequestCallback<BasePageData<WikiTypeData>> callback);
-
-    /**
-     * 获取百科分类列表
-     * <p>同步调用。</p>
-     */
-    BasePageData<WikiTypeData> getWikiTypePageSync(WikiTypePageRequest request) throws NzBaseException;
-
-    /**
-     * 获取百科列表
-     * <p>异步调用。</p>
-     */
-    long getWikiPageAsync(RequestScope scope, WikiPageRequest request, RequestCallback<BasePageData<WikiData>> callback);
-
-    /**
-     * 获取百科列表
-     * <p>同步调用。</p>
-     */
-    BasePageData<WikiData> getWikiPageSync(WikiPageRequest request) throws NzBaseException;
-
-    /**
-     * 获取运动百科详情
-     * <p>异步调用。</p>
-     */
-    long getWikiDetailAsync(RequestScope scope, WikiDetailRequest request, RequestCallback<WikiDetailData> callback);
-
-    /**
-     * 获取运动百科详情
-     * <p>同步调用。</p>
-     */
-    WikiDetailData getWikiDetailSync(WikiDetailRequest request) throws NzBaseException;
 
     /**
      * 修改设备名称

@@ -9,33 +9,33 @@ import android.widget.TextView;
 
 import com.adl.service.AdlService;
 import com.adl.service.callback.RequestCallback;
-import com.adl.service.web.request.BaseGroup;
-import com.adl.service.web.request.BaseGroupAccountInfo;
-import com.adl.service.web.request.CompetitionPageRequest;
-import com.adl.service.web.request.CompetitionRankDetailRequest;
-import com.adl.service.web.request.DownloadGroupTeamDetailPageRequest;
-import com.adl.service.web.request.DownloadGroupTeamPageRequest;
-import com.adl.service.web.request.GetGroupRequest;
-import com.adl.service.web.request.JoinCompetitionRankRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.ResInfoRequest;
-import com.adl.service.web.request.ResPageRequest;
-import com.adl.service.web.request.ResTypeListRequest;
-import com.adl.service.web.request.SaveGroupRequest;
-import com.adl.service.web.request.SportMeetPageRequest;
-import com.adl.service.web.request.TrainPlanInfoPageRequest;
-import com.adl.service.web.request.TrainPlanOneDayProjectListRequest;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.CompetitionData;
-import com.adl.service.web.response.CompetitionRankDetailData;
-import com.adl.service.web.response.GroupData;
-import com.adl.service.web.response.GroupTeamData;
-import com.adl.service.web.response.GroupTeamDetailData;
-import com.adl.service.web.response.ResData;
-import com.adl.service.web.response.ResTypeData;
-import com.adl.service.web.response.SportMeetData;
-import com.adl.service.web.response.TrainPlanInfoData;
-import com.adl.service.web.response.TrainPlanOneDayProjectData;
+import com.adl.service.http.request.BaseGroup;
+import com.adl.service.http.request.BaseGroupAccountInfo;
+import com.adl.service.http.request.CompetitionPageRequest;
+import com.adl.service.http.request.CompetitionRankDetailRequest;
+import com.adl.service.http.request.DownloadGroupTeamDetailPageRequest;
+import com.adl.service.http.request.DownloadGroupTeamPageRequest;
+import com.adl.service.http.request.GetGroupRequest;
+import com.adl.service.http.request.JoinCompetitionRankRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.ResInfoRequest;
+import com.adl.service.http.request.ResPageRequest;
+import com.adl.service.http.request.ResTypeListRequest;
+import com.adl.service.http.request.SaveGroupRequest;
+import com.adl.service.http.request.SportMeetPageRequest;
+import com.adl.service.http.request.TrainPlanInfoPageRequest;
+import com.adl.service.http.request.TrainPlanOneDayProjectListRequest;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.CompetitionData;
+import com.adl.service.data.CompetitionRankDetailData;
+import com.adl.service.data.GroupData;
+import com.adl.service.data.GroupTeamData;
+import com.adl.service.data.GroupTeamDetailData;
+import com.adl.service.data.ResData;
+import com.adl.service.data.ResTypeData;
+import com.adl.service.data.SportMeetData;
+import com.adl.service.data.TrainPlanInfoData;
+import com.adl.service.data.TrainPlanOneDayProjectData;
 import com.adl.ts.general.R;
 
 import java.util.Collections;
@@ -101,7 +101,7 @@ public class V3BusinessCallerTestActivity extends AppCompatActivity {
     }
 
     private TrainPlanOneDayProjectListRequest buildTrainPlanOneDayProjectListRequest() {
-        return TrainPlanOneDayProjectListRequest.builder("", "")
+        return TrainPlanOneDayProjectListRequest.builder("1965665142485622785", "1965665142485622785")
                 .build();
     }
 
@@ -113,7 +113,7 @@ public class V3BusinessCallerTestActivity extends AppCompatActivity {
     private JoinCompetitionRankRequest buildJoinCompetitionRankRequest() {
         return JoinCompetitionRankRequest.builder()
                 .id("2041833871287713792")
-                .accountId("123456789")
+                .accountId("1965665142485622785")
                 .classId("123456789")
                 .build();
     }

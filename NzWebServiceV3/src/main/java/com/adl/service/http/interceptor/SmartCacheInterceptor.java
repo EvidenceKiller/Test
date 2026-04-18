@@ -3,7 +3,7 @@ package com.adl.service.http.interceptor;
 import android.content.Context;
 import android.util.Log;
 
-import com.adl.service.entity.CacheEntry;
+import com.adl.service.http.cache.CacheEntry;
 import com.adl.service.log.NzLog;
 import com.adl.service.utils.HttpCacheUtil;
 import com.adl.service.http.cache.CacheEventListener;
@@ -33,22 +33,21 @@ public class SmartCacheInterceptor implements Interceptor {
     private final long cacheTimeSeconds;
     //接口缓存白名单
     private final List<String> cachePathWhitelist = Arrays.asList(
-            "banner/v1/detail/list",
-            "statistics/sport/sportRankKing",
-            "statistics/sport/exerciseSumTimeRank",
-            "statistics/sport/physicalTrainingRank",
-            "sportSku/v1/getSportSkuList",
-            "sportSku/v1/getSportSkuDetail",
-            "statistics/sport/sportSkuRank",
-            "org/res/v1/list",
-            "org/res/v1/list/type",
-            "cs/wiki/v1/getWikiList",
-            "cs/wiki/type/v1/getWikiTypeList",
-            "grade/v1/getGradeTree",
-            "organizeTest/getPlanList",
-            "organizeTest/getPlanClassList",
-            "organizeTest/checkStudent",
-            "organizeTest/planInfo"
+            "tis/device/oper/banner/getDetailList",
+            "tis/device/statistics/exercise/sport/sportRankKing",
+            "tis/device/statistics/exercise/sport/exerciseSumTimeRank",
+            "tis/device/statistics/exercise/sport/physicalTrainingRank",
+            "tis/device/oper/sku/getSportSkuList",
+            "tis/device/oper/sku/getSportSkuDetail",
+            "tis/device/statistics/exercise/sport/sportSkuRank",
+            "tis/device/org/res/getResList",
+            "tis/device/org/res/getResTypeList",
+            "tis/device/oper/wiki/getWikiList",
+            "tis/device/base/org/grade/getGradeTree",
+            "tis/device/pte/organizeTest/getPlanList",
+            "tis/device/pte/organizeTest/getPlanClassList",
+            "tis/device/pte/organizeTest/checkStudent",
+            "tis/device/pte/organizeTest/getPlanInfo"
     );
     private IHttpCache customCache;
     private CacheEventListener cacheEventListener;

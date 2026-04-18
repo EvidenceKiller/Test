@@ -5,7 +5,7 @@ package com.adl.service.exception;
  */
 public final class NzEmptyResponseException extends NzBaseException {
 
-    public static final String CODE = "NZ_EMPTY_RESPONSE_EXCEPTION";
+    private static final String CODE = "NZ_EMPTY_RESPONSE_EXCEPTION";
 
     public NzEmptyResponseException(String message) {
         super(CODE, message);

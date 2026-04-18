@@ -1,6 +1,7 @@
 package com.adl.service.db;
 
-import com.adl.service.entity.SceneEntity;
+
+import com.adl.service.db.entity.SceneEntity;
 
 import java.util.List;
 
@@ -26,7 +27,9 @@ public interface SceneDao {
     @Query("select * from _scene where _app_code = :appCode and _id = :id limit 1")
     SceneEntity querySportById(String appCode, String id);
 
+    @Query("delete from _scene where _app_code = :appCode")
+    void clearByAppCode(String appCode);
+
     @Query("delete from _scene")
     void clearAll();
-
 }

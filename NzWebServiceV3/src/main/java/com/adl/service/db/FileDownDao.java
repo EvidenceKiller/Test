@@ -1,6 +1,6 @@
 package com.adl.service.db;
 
-import com.adl.service.entity.FileDownInfoEntity;
+import com.adl.service.db.entity.FileDownInfoEntity;
 
 import java.util.List;
 

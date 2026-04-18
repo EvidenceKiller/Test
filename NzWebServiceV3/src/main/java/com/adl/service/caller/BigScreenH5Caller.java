@@ -2,16 +2,16 @@ package com.adl.service.caller;
 
 import com.adl.service.callback.RequestCallback;
 import com.adl.service.exception.NzBaseException;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.SunshineRunningCompetitionRecordPageRequest;
-import com.adl.service.web.request.SunshineRunningSportDetailPageRequest;
-import com.adl.service.web.request.TeachCourseButtonClickCountRequest;
-import com.adl.service.web.request.TeachCourseDataDatesRequest;
-import com.adl.service.web.request.TeachCourseRequest;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.ClassroomCompetitionRecordData;
-import com.adl.service.web.response.SunshineRunningSportDetailData;
-import com.adl.service.web.response.TeachCourseDetailData;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.SunshineRunningCompetitionRecordPageRequest;
+import com.adl.service.http.request.SunshineRunningSportDetailPageRequest;
+import com.adl.service.http.request.TeachCourseButtonClickCountRequest;
+import com.adl.service.http.request.TeachCourseDataDatesRequest;
+import com.adl.service.http.request.TeachCourseRequest;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.ClassroomCompetitionRecordData;
+import com.adl.service.data.SunshineRunningSportDetailData;
+import com.adl.service.data.TeachCourseDetailData;
 
 import java.util.List;
 
@@ -60,13 +60,13 @@ public interface BigScreenH5Caller {
      * 教学按钮点击计数
      * <p>异步调用。</p>
      */
-    long getTeachCourseButtonClickCountAsync(RequestScope scope, TeachCourseButtonClickCountRequest request, RequestCallback<Boolean> callback);
+    long getTeachCourseButtonClickableAsync(RequestScope scope, TeachCourseButtonClickCountRequest request, RequestCallback<Boolean> callback);
 
     /**
      * 教学按钮点击计数
      * <p>同步调用。</p>
      */
-    Boolean getTeachCourseButtonClickCountSync(TeachCourseButtonClickCountRequest request) throws NzBaseException;
+    Boolean getTeachCourseButtonClickableSync(TeachCourseButtonClickCountRequest request) throws NzBaseException;
 
     /**
      * 历史记录

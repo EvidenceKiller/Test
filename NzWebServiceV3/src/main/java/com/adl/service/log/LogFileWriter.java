@@ -2,7 +2,7 @@ package com.adl.service.log;
 
 import android.util.Log;
 
-import com.adl.service.common.FileUtil;
+import com.adl.service.utils.FileUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;

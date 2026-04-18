@@ -9,28 +9,25 @@ import android.widget.TextView;
 
 import com.adl.service.AdlService;
 import com.adl.service.callback.RequestCallback;
-import com.adl.service.web.request.AddBatchPageRequest;
-import com.adl.service.web.request.BaseDirection;
-import com.adl.service.web.request.BaseSort;
-import com.adl.service.web.request.CitizenPageRequest;
-import com.adl.service.web.request.ClassInfoRequest;
-import com.adl.service.web.request.ClassListRequest;
-import com.adl.service.web.request.DeviceActiveRequest;
-import com.adl.service.web.request.DictsRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.StudentPageRequest;
-import com.adl.service.web.request.TeacherListRequest;
-import com.adl.service.web.response.AcayearData;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.CitizenPageData;
-import com.adl.service.web.response.ClassInfoData;
-import com.adl.service.web.response.ClassListData;
-import com.adl.service.web.response.DictsData;
-import com.adl.service.web.response.GradeChineseNameData;
-import com.adl.service.web.response.GradeTreeData;
-import com.adl.service.web.response.LoginInfoData;
-import com.adl.service.web.response.StudentData;
-import com.adl.service.web.response.TeacherData;
+import com.adl.service.http.request.BaseDirection;
+import com.adl.service.http.request.BaseSort;
+import com.adl.service.http.request.ClassInfoRequest;
+import com.adl.service.http.request.ClassListRequest;
+import com.adl.service.http.request.DeviceActiveRequest;
+import com.adl.service.http.request.DictRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.StudentPageRequest;
+import com.adl.service.http.request.TeacherListRequest;
+import com.adl.service.data.AcayearData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.ClassInfoData;
+import com.adl.service.data.ClassData;
+import com.adl.service.data.DictData;
+import com.adl.service.data.GradeChineseNameData;
+import com.adl.service.data.GradeTreeData;
+import com.adl.service.data.LoginInfoData;
+import com.adl.service.data.StudentData;
+import com.adl.service.data.TeacherData;
 import com.adl.ts.general.R;
 
 import java.util.ArrayList;
@@ -81,17 +78,11 @@ public class V3CommonInfoCallerTestActivity extends AppCompatActivity {
         createButton("getStudentPageAsync").setOnClickListener(v -> getStudentPageAsync());
         createButton("getStudentPageSync").setOnClickListener(v -> getStudentPageSync());
 
-        createButton("getCitizenPageAsync").setOnClickListener(v -> getCitizenPageAsync());
-        createButton("getCitizenPageSync").setOnClickListener(v -> getCitizenPageSync());
-
         createButton("getDictsAsync").setOnClickListener(v -> getDictsAsync());
         createButton("getDictsSync").setOnClickListener(v -> getDictsSync());
 
         createButton("deviceActiveAsync").setOnClickListener(v -> deviceActiveAsync());
         createButton("deviceActiveSync").setOnClickListener(v -> deviceActiveSync());
-
-        createButton("addBatchPageAsync").setOnClickListener(v -> addBatchPageAsync());
-        createButton("addBatchPageSync").setOnClickListener(v -> addBatchPageSync());
     }
 
     private void getGradeTreeAsync() {
@@ -208,9 +199,9 @@ public class V3CommonInfoCallerTestActivity extends AppCompatActivity {
 
     private void getClassListAsync() {
         ClassListRequest request = ClassListRequest.builder().build();
-        AdlService.getService().getCommonInfoCaller().getClassListAsync(RequestScope.of(this), request, new RequestCallback<List<ClassListData>>() {
+        AdlService.getService().getCommonInfoCaller().getClassListAsync(RequestScope.of(this), request, new RequestCallback<List<ClassData>>() {
             @Override
-            public void onSuccess(List<ClassListData> data) {
+            public void onSuccess(List<ClassData> data) {
                 if (data != null) {
                     Log.d(TAG, "CommonInfoCallerTestActivity::getClassListAsync::onSuccess : data size : " + data.size());
                     Log.d(TAG, "CommonInfoCallerTestActivity::getClassListAsync::onSuccess : data : " + data);
@@ -238,9 +229,9 @@ public class V3CommonInfoCallerTestActivity extends AppCompatActivity {
         AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
             ClassListRequest request = ClassListRequest.builder().build();
             return AdlService.getService().getCommonInfoCaller().getClassListSync(request);
-        }, new RequestCallback<List<ClassListData>>() {
+        }, new RequestCallback<List<ClassData>>() {
             @Override
-            public void onSuccess(List<ClassListData> data) {
+            public void onSuccess(List<ClassData> data) {
                 if (data != null) {
                     Log.d(TAG, "CommonInfoCallerTestActivity::getClassListSync::onSuccess : data size : " + data.size());
                     Log.d(TAG, "CommonInfoCallerTestActivity::getClassListSync::onSuccess : data : " + data);
@@ -557,69 +548,11 @@ public class V3CommonInfoCallerTestActivity extends AppCompatActivity {
         });
     }
 
-    private void getCitizenPageAsync() {
-        CitizenPageRequest request = CitizenPageRequest.builder()
-                .build();
-        AdlService.getService().getCommonInfoCaller().getCitizenPageAsync(RequestScope.of(this), request, new RequestCallback<CitizenPageData>() {
-            @Override
-            public void onSuccess(CitizenPageData data) {
-                if (data != null) {
-                    Log.d(TAG, "CommonInfoCallerTestActivity::getCitizenPageAsync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "CommonInfoCallerTestActivity::getCitizenPageAsync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::getCitizenPageAsync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::getCitizenPageAsync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void getCitizenPageSync() {
-        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
-            CitizenPageRequest request = CitizenPageRequest.builder()
-                    .build();
-            return AdlService.getService().getCommonInfoCaller().getCitizenPageSync(request);
-        }, new RequestCallback<CitizenPageData>() {
-            @Override
-            public void onSuccess(CitizenPageData data) {
-                if (data != null) {
-                    Log.d(TAG, "CommonInfoCallerTestActivity::getCitizenPageSync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "CommonInfoCallerTestActivity::getCitizenPageSync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::getCitizenPageSync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::getCitizenPageSync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
     private void getDictsAsync() {
-        DictsRequest request = DictsRequest.builder().build();
-        AdlService.getService().getCommonInfoCaller().getDictsAsync(RequestScope.of(this), request, new RequestCallback<List<DictsData>>() {
+        DictRequest request = DictRequest.builder().build();
+        AdlService.getService().getCommonInfoCaller().getDictListAsync(RequestScope.of(this), request, new RequestCallback<List<DictData>>() {
             @Override
-            public void onSuccess(List<DictsData> data) {
+            public void onSuccess(List<DictData> data) {
                 if (data != null) {
                     Log.d(TAG, "CommonInfoCallerTestActivity::getDictsAsync::onSuccess : data size : " + data.size());
                     Log.d(TAG, "CommonInfoCallerTestActivity::getDictsAsync::onSuccess : data : " + data);
@@ -645,11 +578,11 @@ public class V3CommonInfoCallerTestActivity extends AppCompatActivity {
 
     private void getDictsSync() {
         AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
-            DictsRequest request = DictsRequest.builder().build();
-            return AdlService.getService().getCommonInfoCaller().getDictsSync(request);
-        }, new RequestCallback<List<DictsData>>() {
+            DictRequest request = DictRequest.builder().build();
+            return AdlService.getService().getCommonInfoCaller().getDictListSync(request);
+        }, new RequestCallback<List<DictData>>() {
             @Override
-            public void onSuccess(List<DictsData> data) {
+            public void onSuccess(List<DictData> data) {
                 if (data != null) {
                     Log.d(TAG, "CommonInfoCallerTestActivity::getDictsSync::onSuccess : data size : " + data.size());
                     Log.d(TAG, "CommonInfoCallerTestActivity::getDictsSync::onSuccess : data : " + data);
@@ -716,56 +649,6 @@ public class V3CommonInfoCallerTestActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Log.d(TAG, "CommonInfoCallerTestActivity::deviceActiveSync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void addBatchPageAsync() {
-        AddBatchPageRequest request = AddBatchPageRequest.builder()
-                .build();
-        AdlService.getService().getCommonInfoCaller().addBatchPageAsync(RequestScope.of(this), request, new RequestCallback<Object>() {
-            @Override
-            public void onSuccess(Object data) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::addBatchPageAsync::onSuccess : data : " + data);
-                resultView.setText(String.valueOf(data));
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::addBatchPageAsync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::addBatchPageAsync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void addBatchPageSync() {
-        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
-            AddBatchPageRequest request = AddBatchPageRequest.builder()
-                    .build();
-            return AdlService.getService().getCommonInfoCaller().addBatchPageSync(request);
-        }, new RequestCallback<Object>() {
-            @Override
-            public void onSuccess(Object data) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::addBatchPageSync::onSuccess : data : " + data);
-                resultView.setText(String.valueOf(data));
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::addBatchPageSync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "CommonInfoCallerTestActivity::addBatchPageSync::onError : error : " + error);
                 resultView.setText(error);
             }
         });

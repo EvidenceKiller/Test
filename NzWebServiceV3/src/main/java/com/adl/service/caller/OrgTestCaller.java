@@ -2,20 +2,20 @@ package com.adl.service.caller;
 
 import com.adl.service.callback.RequestCallback;
 import com.adl.service.exception.NzBaseException;
-import com.adl.service.web.request.CheckStudentInPlanRequest;
-import com.adl.service.web.request.PlanClassListRequest;
-import com.adl.service.web.request.PlanListRequest;
-import com.adl.service.web.request.PlanStudentPageRequest;
-import com.adl.service.web.request.RecordDetailPageRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.StandardConfigPageRequest;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.PlanClassData;
-import com.adl.service.web.response.PlanInfoData;
-import com.adl.service.web.response.PlanData;
-import com.adl.service.web.response.PlanStudentData;
-import com.adl.service.web.response.RecordDetailData;
-import com.adl.service.web.response.StandardConfigPageData;
+import com.adl.service.http.request.CheckStudentInPlanRequest;
+import com.adl.service.http.request.PlanClassListRequest;
+import com.adl.service.http.request.PlanInfoRequest;
+import com.adl.service.http.request.PlanPageRequest;
+import com.adl.service.http.request.PlanStudentPageRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.StandardConfigPageRequest;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.PlanClassData;
+import com.adl.service.data.PlanInfoData;
+import com.adl.service.data.PlanData;
+import com.adl.service.data.PlanStudentData;
+import com.adl.service.callback.GetPageResult;
+import com.adl.service.data.StandardConfigData;
 
 import java.util.List;
 
@@ -24,29 +24,31 @@ import java.util.List;
  */
 public interface OrgTestCaller {
 
+    void reLoadAllOrgTestDataSync(boolean syncStandard) throws NzBaseException;
+
+    void clearStandardConfigDataSync();
+
+    long getStandardConfigPagesAllAsync(RequestScope scope, StandardConfigPageRequest request, RequestCallback<GetPageResult> callback);
+
+    GetPageResult getStandardConfigPagesAllSync(StandardConfigPageRequest request) throws NzBaseException;
+
     /**
      * 获取标准列表
      * <p>异步调用。</p>
      */
-    long getStandardConfigPageAsync(RequestScope scope, StandardConfigPageRequest request, RequestCallback<List<StandardConfigPageData>> callback);
+    long getStandardConfigPageAsync(RequestScope scope, StandardConfigPageRequest request, RequestCallback<List<StandardConfigData>> callback);
 
     /**
      * 获取标准列表
      * <p>同步调用。</p>
      */
-    List<StandardConfigPageData> getStandardConfigPageSync(StandardConfigPageRequest request) throws NzBaseException;
+    List<StandardConfigData> getStandardConfigPageSync(StandardConfigPageRequest request) throws NzBaseException;
 
-    /**
-     * 获取组织测试记录详情
-     * <p>异步调用。</p>
-     */
-    long getRecordDetailPageAsync(RequestScope scope, RecordDetailPageRequest request, RequestCallback<BasePageData<RecordDetailData>> callback);
+    void clearPlanStudentDataSync();
 
-    /**
-     * 获取组织测试记录详情
-     * <p>同步调用。</p>
-     */
-    BasePageData<RecordDetailData> getRecordDetailPageSync(RecordDetailPageRequest request) throws NzBaseException;
+    long getPlanStudentPagesAllASync(RequestScope scope, PlanStudentPageRequest request, RequestCallback<GetPageResult> callback);
+
+    GetPageResult getPlanStudentPagesAllSync(PlanStudentPageRequest request) throws NzBaseException;
 
     /**
      * 获取计划下学生
@@ -60,29 +62,53 @@ public interface OrgTestCaller {
      */
     BasePageData<PlanStudentData> getPlanStudentPageSync(PlanStudentPageRequest request) throws NzBaseException;
 
+    void clearPlanDataSync();
+
+    /**
+     * 获取所有的分页计划列表
+     * <p>异步调用。</p>
+     *
+     * @param scope
+     * @param request
+     * @param callback
+     * @return
+     * @throws NzBaseException
+     */
+    long getPlanPagesAllAsync(RequestScope scope, PlanPageRequest request, RequestCallback<GetPageResult> callback);
+
+    /**
+     * 获取所有的分页计划列表
+     * <p>同步调用。</p>
+     *
+     * @param request
+     * @return
+     * @throws NzBaseException
+     */
+    GetPageResult getPlanPagesAllSync(PlanPageRequest request) throws NzBaseException;
+
     /**
      * 获取计划列表
      * <p>异步调用。</p>
      */
-    long getPlanPageAsync(RequestScope scope, PlanListRequest request, RequestCallback<BasePageData<PlanData>> callback);
+    long getPlanPageAsync(RequestScope scope, PlanPageRequest request, RequestCallback<BasePageData<PlanData>> callback);
 
     /**
      * 获取计划列表
      * <p>同步调用。</p>
      */
-    BasePageData<PlanData> getPlanPageSync(PlanListRequest request) throws NzBaseException;
+    BasePageData<PlanData> getPlanPageSync(PlanPageRequest request) throws NzBaseException;
 
     /**
      * 获取组织测试计划详情
      * <p>异步调用。</p>
      */
-    long getPlanInfoAsync(RequestScope scope, RequestCallback<PlanInfoData> callback);
+    long getPlanInfoAsync(RequestScope scope, PlanInfoRequest request, RequestCallback<PlanInfoData> callback);
 
     /**
      * 获取组织测试计划详情
      * <p>同步调用。</p>
      */
-    PlanInfoData getPlanInfoSync() throws NzBaseException;
+    PlanInfoData getPlanInfoSync(PlanInfoRequest request) throws NzBaseException;
 
     /**
      * 获取计划班级列表

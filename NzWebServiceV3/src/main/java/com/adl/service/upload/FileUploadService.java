@@ -2,12 +2,12 @@ package com.adl.service.upload;
 
 import android.text.TextUtils;
 
-import com.adl.service.AdlService;
 import com.adl.service.ConfigService;
 import com.adl.service.common.BaseService;
 import com.adl.service.common.IDefine;
+import com.adl.service.db.DaoManagerProxy;
 import com.adl.service.db.FileUploadDao;
-import com.adl.service.entity.FileUploadInfoEntity;
+import com.adl.service.db.entity.FileUploadInfoEntity;
 import com.adl.service.log.NzLog;
 import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.http.ResponseInfo;
@@ -55,7 +55,7 @@ public class FileUploadService extends BaseService {
         uploadManager = new UploadManager(config);
 
         // dao
-        uploadDao = AdlService.getService().getFileUploadDao();
+        uploadDao = DaoManagerProxy.getInstance().getFileUploadDao();
 
         // 启动任务
         mStart = true;

@@ -2,26 +2,24 @@ package com.adl.service.caller;
 
 import com.adl.service.callback.RequestCallback;
 import com.adl.service.exception.NzBaseException;
-import com.adl.service.web.request.AddBatchPageRequest;
-import com.adl.service.web.request.CitizenPageRequest;
-import com.adl.service.web.request.ClassInfoRequest;
-import com.adl.service.web.request.ClassListRequest;
-import com.adl.service.web.request.DeviceActiveRequest;
-import com.adl.service.web.request.DictsRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.StudentPageRequest;
-import com.adl.service.web.request.TeacherListRequest;
-import com.adl.service.web.response.AcayearData;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.CitizenPageData;
-import com.adl.service.web.response.ClassInfoData;
-import com.adl.service.web.response.ClassListData;
-import com.adl.service.web.response.DictsData;
-import com.adl.service.web.response.GradeChineseNameData;
-import com.adl.service.web.response.GradeTreeData;
-import com.adl.service.web.response.LoginInfoData;
-import com.adl.service.web.response.StudentData;
-import com.adl.service.web.response.TeacherData;
+import com.adl.service.http.request.ClassInfoRequest;
+import com.adl.service.http.request.ClassListRequest;
+import com.adl.service.http.request.DeviceActiveRequest;
+import com.adl.service.http.request.DictRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.StudentPageRequest;
+import com.adl.service.http.request.TeacherListRequest;
+import com.adl.service.data.AcayearData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.ClassInfoData;
+import com.adl.service.data.ClassData;
+import com.adl.service.data.DictData;
+import com.adl.service.data.GradeChineseNameData;
+import com.adl.service.data.GradeTreeData;
+import com.adl.service.data.LoginInfoData;
+import com.adl.service.callback.GetPageResult;
+import com.adl.service.data.StudentData;
+import com.adl.service.data.TeacherData;
 
 import java.util.List;
 
@@ -29,6 +27,32 @@ import java.util.List;
  * CommonInfoCaller。
  */
 public interface CommonInfoCaller {
+
+    void reloadCommonInfoData(boolean forceUpdate, int faceType, long pageSize) throws NzBaseException;
+
+    List<StudentData> queryAllStudentSync();
+
+    List<StudentData> queryAllStudentWithFaceDataSync();
+
+    int queryAllStudentCountSync();
+
+    StudentData queryStudentByAccountIdSync(String accountId);
+
+    List<StudentData> queryStudentByAccountIdsSync(List<String> accountIds);
+
+    List<StudentData> queryStudentByClassIdsSync(List<String> classIds);
+
+    List<StudentData> queryStudentByCarNumSync(String cardNum);
+
+    List<TeacherData> queryAllTeacherSync();
+
+    List<TeacherData> queryAllTeacherWithFaceDataSync();
+
+    int queryAllTeacherCountSync(RequestCallback callback);
+
+    TeacherData queryTeacherByAccountIdSync(String accountId);
+
+    List<TeacherData> queryTeacherByAccountIdsSync(List<String> accountIds);
 
     /**
      * 获取机构年级树
@@ -58,13 +82,13 @@ public interface CommonInfoCaller {
      * 获取班级列表
      * <p>异步调用。</p>
      */
-    long getClassListAsync(RequestScope scope, ClassListRequest request, RequestCallback<List<ClassListData>> callback);
+    long getClassListAsync(RequestScope scope, ClassListRequest request, RequestCallback<List<ClassData>> callback);
 
     /**
      * 获取班级列表
      * <p>同步调用。</p>
      */
-    List<ClassListData> getClassListSync(ClassListRequest request) throws NzBaseException;
+    List<ClassData> getClassListSync(ClassListRequest request) throws NzBaseException;
 
     /**
      * 获取班级信息
@@ -102,6 +126,10 @@ public interface CommonInfoCaller {
      */
     List<AcayearData> getAcayearListSync() throws NzBaseException;
 
+    long getTeacherListsAllAsync(RequestScope scope, TeacherListRequest request, RequestCallback<GetPageResult> callback);
+
+    GetPageResult getTeacherListsAllSync(TeacherListRequest request) throws NzBaseException;
+
     /**
      * 获取教师用户列表（全量）
      * <p>异步调用。</p>
@@ -113,6 +141,10 @@ public interface CommonInfoCaller {
      * <p>同步调用。</p>
      */
     List<TeacherData> getTeacherListSync(TeacherListRequest request) throws NzBaseException;
+
+    long getStudentPagesAllAsync(RequestScope scope, StudentPageRequest request, RequestCallback<GetPageResult> callback);
+
+    GetPageResult getStudentPagesAllSync(StudentPageRequest request) throws NzBaseException;
 
     /**
      * 获取学生增量数据
@@ -127,28 +159,16 @@ public interface CommonInfoCaller {
     BasePageData<StudentData> getStudentPageSync(StudentPageRequest request) throws NzBaseException;
 
     /**
-     * 获取市民用户列表
-     * <p>异步调用。</p>
-     */
-    long getCitizenPageAsync(RequestScope scope, CitizenPageRequest request, RequestCallback<CitizenPageData> callback);
-
-    /**
-     * 获取市民用户列表
-     * <p>同步调用。</p>
-     */
-    CitizenPageData getCitizenPageSync(CitizenPageRequest request) throws NzBaseException;
-
-    /**
      * 获取系统字典
      * <p>异步调用。</p>
      */
-    long getDictsAsync(RequestScope scope, DictsRequest request, RequestCallback<List<DictsData>> callback);
+    long getDictListAsync(RequestScope scope, DictRequest request, RequestCallback<List<DictData>> callback);
 
     /**
      * 获取系统字典
      * <p>同步调用。</p>
      */
-    List<DictsData> getDictsSync(DictsRequest request) throws NzBaseException;
+    List<DictData> getDictListSync(DictRequest request) throws NzBaseException;
 
     /**
      * 设备激活
@@ -161,17 +181,4 @@ public interface CommonInfoCaller {
      * <p>同步调用。</p>
      */
     Boolean deviceActiveSync(DeviceActiveRequest request) throws NzBaseException;
-
-    /**
-     * 添加通用日志
-     * <p>异步调用。</p>
-     */
-    long addBatchPageAsync(RequestScope scope, AddBatchPageRequest request, RequestCallback<Object> callback);
-
-    /**
-     * 添加通用日志
-     * <p>同步调用。</p>
-     */
-    Object addBatchPageSync(AddBatchPageRequest request) throws NzBaseException;
-
 }

@@ -5,7 +5,7 @@ package com.adl.service.exception;
  */
 public final class NzIOException extends NzBaseException {
 
-    public static final String CODE = "NZ_IO_EXCEPTION";
+    private static final String CODE = "NZ_IO_EXCEPTION";
 
     public NzIOException(String message) {
         super(CODE, message);

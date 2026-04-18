@@ -2,31 +2,32 @@ package com.adl.service.caller;
 
 import com.adl.service.callback.RequestCallback;
 import com.adl.service.exception.NzBaseException;
-import com.adl.service.web.request.CompetitionPageRequest;
-import com.adl.service.web.request.CompetitionRankDetailRequest;
-import com.adl.service.web.request.DownloadGroupTeamDetailPageRequest;
-import com.adl.service.web.request.DownloadGroupTeamPageRequest;
-import com.adl.service.web.request.GetGroupRequest;
-import com.adl.service.web.request.JoinCompetitionRankRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.ResInfoRequest;
-import com.adl.service.web.request.ResPageRequest;
-import com.adl.service.web.request.ResTypeListRequest;
-import com.adl.service.web.request.SaveGroupRequest;
-import com.adl.service.web.request.SportMeetPageRequest;
-import com.adl.service.web.request.TrainPlanInfoPageRequest;
-import com.adl.service.web.request.TrainPlanOneDayProjectListRequest;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.CompetitionData;
-import com.adl.service.web.response.CompetitionRankDetailData;
-import com.adl.service.web.response.GroupData;
-import com.adl.service.web.response.GroupTeamData;
-import com.adl.service.web.response.GroupTeamDetailData;
-import com.adl.service.web.response.ResData;
-import com.adl.service.web.response.ResTypeData;
-import com.adl.service.web.response.SportMeetData;
-import com.adl.service.web.response.TrainPlanInfoData;
-import com.adl.service.web.response.TrainPlanOneDayProjectData;
+import com.adl.service.http.request.CompetitionPageRequest;
+import com.adl.service.http.request.CompetitionRankDetailRequest;
+import com.adl.service.http.request.DownloadGroupTeamDetailPageRequest;
+import com.adl.service.http.request.DownloadGroupTeamPageRequest;
+import com.adl.service.http.request.GetGroupRequest;
+import com.adl.service.http.request.JoinCompetitionRankRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.ResInfoRequest;
+import com.adl.service.http.request.ResPageRequest;
+import com.adl.service.http.request.ResTypeListRequest;
+import com.adl.service.http.request.SaveGroupRequest;
+import com.adl.service.http.request.SportMeetPageRequest;
+import com.adl.service.http.request.TrainPlanInfoPageRequest;
+import com.adl.service.http.request.TrainPlanOneDayProjectListRequest;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.CompetitionData;
+import com.adl.service.data.CompetitionRankDetailData;
+import com.adl.service.data.GroupData;
+import com.adl.service.data.GroupTeamData;
+import com.adl.service.data.GroupTeamDetailData;
+import com.adl.service.data.ResData;
+import com.adl.service.data.ResTypeData;
+import com.adl.service.callback.GetPageResult;
+import com.adl.service.data.SportMeetData;
+import com.adl.service.data.TrainPlanInfoData;
+import com.adl.service.data.TrainPlanOneDayProjectData;
 
 import java.util.List;
 
@@ -107,6 +108,10 @@ public interface BusinessCaller {
      */
     CompetitionRankDetailData getCompetitionRankDetailSync(CompetitionRankDetailRequest request) throws NzBaseException;
 
+    long getCompetitionPagesAllAsync(RequestScope scope, CompetitionPageRequest request, RequestCallback<GetPageResult> callback);
+
+    GetPageResult getCompetitionPagesAllSync(CompetitionPageRequest request) throws NzBaseException;
+
     /**
      * 赛事列表
      * <p>异步调用。</p>
@@ -120,13 +125,27 @@ public interface BusinessCaller {
     BasePageData<CompetitionData> getCompetitionPageSync(CompetitionPageRequest request) throws NzBaseException;
 
     /**
-     * 获取运动会列表
+     * 清空运动会数据
+     * <p>同步调用。</p>
+     */
+    void clearSportMeetDataSync();
+
+    long getSportMeetPagesAllAsync(RequestScope scope, SportMeetPageRequest request, RequestCallback<GetPageResult> callback);
+
+    /**
+     * 获取所有运动会列表
+     * <p>同步调用。</p>
+     */
+    GetPageResult getSportMeetPagesAllSync(SportMeetPageRequest request) throws NzBaseException;
+
+    /**
+     * 分页获取运动会列表
      * <p>异步调用。</p>
      */
     long getSportMeetPageAsync(RequestScope scope, SportMeetPageRequest request, RequestCallback<BasePageData<SportMeetData>> callback);
 
     /**
-     * 获取运动会列表
+     * 分页获取运动会列表
      * <p>同步调用。</p>
      */
     BasePageData<SportMeetData> getSportMeetPageSync(SportMeetPageRequest request) throws NzBaseException;

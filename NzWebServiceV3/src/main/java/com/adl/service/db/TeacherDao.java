@@ -1,6 +1,7 @@
 package com.adl.service.db;
 
-import com.adl.service.entity.TeacherEntity;
+
+import com.adl.service.db.entity.TeacherEntity;
 
 import java.util.List;
 

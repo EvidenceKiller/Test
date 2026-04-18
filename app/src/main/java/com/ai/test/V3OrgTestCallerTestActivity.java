@@ -9,20 +9,20 @@ import android.widget.TextView;
 
 import com.adl.service.AdlService;
 import com.adl.service.callback.RequestCallback;
-import com.adl.service.web.request.CheckStudentInPlanRequest;
-import com.adl.service.web.request.PlanClassListRequest;
-import com.adl.service.web.request.PlanListRequest;
-import com.adl.service.web.request.PlanStudentPageRequest;
-import com.adl.service.web.request.RecordDetailPageRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.StandardConfigPageRequest;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.PlanClassData;
-import com.adl.service.web.response.PlanInfoData;
-import com.adl.service.web.response.PlanData;
-import com.adl.service.web.response.PlanStudentData;
-import com.adl.service.web.response.RecordDetailData;
-import com.adl.service.web.response.StandardConfigPageData;
+import com.adl.service.http.request.CheckStudentInPlanRequest;
+import com.adl.service.http.request.PlanClassListRequest;
+import com.adl.service.http.request.PlanInfoRequest;
+import com.adl.service.http.request.PlanPageRequest;
+import com.adl.service.http.request.PlanStudentPageRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.StandardConfigPageRequest;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.PlanClassData;
+import com.adl.service.data.PlanInfoData;
+import com.adl.service.data.PlanData;
+import com.adl.service.data.PlanStudentData;
+import com.adl.service.callback.GetPageResult;
+import com.adl.service.data.StandardConfigData;
 import com.adl.ts.general.R;
 
 import java.util.List;
@@ -48,12 +48,12 @@ public class V3OrgTestCallerTestActivity extends AppCompatActivity {
 
         createButton("getStandardConfigPageAsync").setOnClickListener(v -> getStandardConfigPageAsync());
         createButton("getStandardConfigPageSync").setOnClickListener(v -> getStandardConfigPageSync());
-        createButton("getRecordDetailPageAsync").setOnClickListener(v -> getRecordDetailPageAsync());
-        createButton("getRecordDetailPageSync").setOnClickListener(v -> getRecordDetailPageSync());
         createButton("getPlanStudentPageAsync").setOnClickListener(v -> getPlanStudentPageAsync());
         createButton("getPlanStudentPageSync").setOnClickListener(v -> getPlanStudentPageSync());
         createButton("getPlanPageAsync").setOnClickListener(v -> getPlanPageAsync());
         createButton("getPlanPageSync").setOnClickListener(v -> getPlanPageSync());
+        createButton("getAllPlanPagesAsync").setOnClickListener(v -> getAllPlanPagesAsync());
+        createButton("getAllPlanPagesSync").setOnClickListener(v -> getAllPlanPagesSync());
         createButton("getPlanInfoAsync").setOnClickListener(v -> getPlanInfoAsync());
         createButton("getPlanInfoSync").setOnClickListener(v -> getPlanInfoSync());
         createButton("getPlanClassListAsync").setOnClickListener(v -> getPlanClassListAsync());
@@ -68,23 +68,24 @@ public class V3OrgTestCallerTestActivity extends AppCompatActivity {
                 .build();
     }
 
-    private RecordDetailPageRequest buildRecordDetailPageRequest() {
-        return RecordDetailPageRequest.builder()
-                .build();
-    }
-
     private PlanStudentPageRequest buildPlanStudentPageRequest() {
         return PlanStudentPageRequest.builder("fc7a820389f744b5a094c775ba3037db")
                 .build();
     }
 
-    private PlanListRequest buildPlanListRequest() {
-        return PlanListRequest.builder()
+    private PlanPageRequest buildPlanPageRequest() {
+        return PlanPageRequest.builder()
+                .build();
+    }
+
+    private PlanPageRequest buildPlanListRequest() {
+        return PlanPageRequest.builder()
+                .current(1L)
                 .build();
     }
 
     private PlanClassListRequest buildPlanClassListRequest() {
-        return PlanClassListRequest.builder()
+        return PlanClassListRequest.builder("fc7a820389f744b5a094c775ba3037db")
                 .build();
     }
 
@@ -95,9 +96,9 @@ public class V3OrgTestCallerTestActivity extends AppCompatActivity {
 
     private void getStandardConfigPageAsync() {
         StandardConfigPageRequest request = buildStandardConfigPageRequest();
-        AdlService.getService().getOrgTestCaller().getStandardConfigPageAsync(RequestScope.of(this), request, new RequestCallback<List<StandardConfigPageData>>() {
+        AdlService.getService().getOrgTestCaller().getStandardConfigPageAsync(RequestScope.of(this), request, new RequestCallback<List<StandardConfigData>>() {
             @Override
-            public void onSuccess(List<StandardConfigPageData> data) {
+            public void onSuccess(List<StandardConfigData> data) {
                 if (data != null) {
                     Log.d(TAG, "OrgTestCallerTestActivity::getStandardConfigPageAsync::onSuccess : data size : " + data.size());
                     Log.d(TAG, "OrgTestCallerTestActivity::getStandardConfigPageAsync::onSuccess : data : " + data);
@@ -125,9 +126,9 @@ public class V3OrgTestCallerTestActivity extends AppCompatActivity {
         AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
             StandardConfigPageRequest request = buildStandardConfigPageRequest();
             return AdlService.getService().getOrgTestCaller().getStandardConfigPageSync(request);
-        }, new RequestCallback<List<StandardConfigPageData>>() {
+        }, new RequestCallback<List<StandardConfigData>>() {
             @Override
-            public void onSuccess(List<StandardConfigPageData> data) {
+            public void onSuccess(List<StandardConfigData> data) {
                 if (data != null) {
                     Log.d(TAG, "OrgTestCallerTestActivity::getStandardConfigPageSync::onSuccess : data size : " + data.size());
                     Log.d(TAG, "OrgTestCallerTestActivity::getStandardConfigPageSync::onSuccess : data : " + data);
@@ -146,62 +147,6 @@ public class V3OrgTestCallerTestActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Log.d(TAG, "OrgTestCallerTestActivity::getStandardConfigPageSync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void getRecordDetailPageAsync() {
-        RecordDetailPageRequest request = buildRecordDetailPageRequest();
-        AdlService.getService().getOrgTestCaller().getRecordDetailPageAsync(RequestScope.of(this), request, new RequestCallback<BasePageData<RecordDetailData>>() {
-            @Override
-            public void onSuccess(BasePageData<RecordDetailData> data) {
-                if (data != null) {
-                    Log.d(TAG, "OrgTestCallerTestActivity::getRecordDetailPageAsync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "OrgTestCallerTestActivity::getRecordDetailPageAsync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "OrgTestCallerTestActivity::getRecordDetailPageAsync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "OrgTestCallerTestActivity::getRecordDetailPageAsync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void getRecordDetailPageSync() {
-        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
-            RecordDetailPageRequest request = buildRecordDetailPageRequest();
-            return AdlService.getService().getOrgTestCaller().getRecordDetailPageSync(request);
-        }, new RequestCallback<BasePageData<RecordDetailData>>() {
-            @Override
-            public void onSuccess(BasePageData<RecordDetailData> data) {
-                if (data != null) {
-                    Log.d(TAG, "OrgTestCallerTestActivity::getRecordDetailPageSync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "OrgTestCallerTestActivity::getRecordDetailPageSync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "OrgTestCallerTestActivity::getRecordDetailPageSync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "OrgTestCallerTestActivity::getRecordDetailPageSync::onError : error : " + error);
                 resultView.setText(error);
             }
         });
@@ -264,7 +209,7 @@ public class V3OrgTestCallerTestActivity extends AppCompatActivity {
     }
 
     private void getPlanPageAsync() {
-        PlanListRequest request = buildPlanListRequest();
+        PlanPageRequest request = buildPlanPageRequest();
         AdlService.getService().getOrgTestCaller().getPlanPageAsync(RequestScope.of(this), request, new RequestCallback<BasePageData<PlanData>>() {
             @Override
             public void onSuccess(BasePageData<PlanData> data) {
@@ -292,7 +237,7 @@ public class V3OrgTestCallerTestActivity extends AppCompatActivity {
 
     private void getPlanPageSync() {
         AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
-            PlanListRequest request = buildPlanListRequest();
+            PlanPageRequest request = buildPlanPageRequest();
             return AdlService.getService().getOrgTestCaller().getPlanPageSync(request);
         }, new RequestCallback<BasePageData<PlanData>>() {
             @Override
@@ -319,8 +264,65 @@ public class V3OrgTestCallerTestActivity extends AppCompatActivity {
         });
     }
 
+    private void getAllPlanPagesAsync() {
+        PlanPageRequest request = buildPlanListRequest();
+        AdlService.getService().getOrgTestCaller().getPlanPagesAllAsync(RequestScope.of(this), request, new RequestCallback<GetPageResult>() {
+            @Override
+            public void onSuccess(GetPageResult data) {
+                if (data != null) {
+                    Log.d(TAG, "OrgTestCallerTestActivity::getAllPlanPagesAsync::onSuccess : data : " + data);
+                    resultView.setText(data.toString());
+                } else {
+                    Log.d(TAG, "OrgTestCallerTestActivity::getAllPlanPagesAsync::onSuccess : data is null");
+                }
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                Log.d(TAG, "OrgTestCallerTestActivity::getAllPlanPagesAsync::onFail : code : " + code + ", msg : " + msg);
+                resultView.setText(msg);
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.d(TAG, "OrgTestCallerTestActivity::getAllPlanPagesAsync::onError : error : " + error);
+                resultView.setText(error);
+            }
+        });
+    }
+
+    private void getAllPlanPagesSync() {
+        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
+            PlanPageRequest request = buildPlanListRequest();
+            return AdlService.getService().getOrgTestCaller().getPlanPagesAllSync(request);
+        }, new RequestCallback<GetPageResult>() {
+            @Override
+            public void onSuccess(GetPageResult data) {
+                if (data != null) {
+                    Log.d(TAG, "OrgTestCallerTestActivity::getAllPlanPagesSync::onSuccess : data : " + data);
+                    resultView.setText(data.toString());
+                } else {
+                    Log.d(TAG, "OrgTestCallerTestActivity::getAllPlanPagesSync::onSuccess : data is null");
+                }
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                Log.d(TAG, "OrgTestCallerTestActivity::getAllPlanPagesSync::onFail : code : " + code + ", msg : " + msg);
+                resultView.setText(msg);
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.d(TAG, "OrgTestCallerTestActivity::getAllPlanPagesSync::onError : error : " + error);
+                resultView.setText(error);
+            }
+        });
+    }
+
     private void getPlanInfoAsync() {
-        AdlService.getService().getOrgTestCaller().getPlanInfoAsync(RequestScope.of(this), new RequestCallback<PlanInfoData>() {
+        PlanInfoRequest request = PlanInfoRequest.builder("fc7a820389f744b5a094c775ba3037db").build();
+        AdlService.getService().getOrgTestCaller().getPlanInfoAsync(RequestScope.of(this), request, new RequestCallback<PlanInfoData>() {
             @Override
             public void onSuccess(PlanInfoData data) {
                 if (data != null) {
@@ -346,7 +348,10 @@ public class V3OrgTestCallerTestActivity extends AppCompatActivity {
     }
 
     private void getPlanInfoSync() {
-        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> AdlService.getService().getOrgTestCaller().getPlanInfoSync(), new RequestCallback<PlanInfoData>() {
+        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
+            PlanInfoRequest request = PlanInfoRequest.builder("fc7a820389f744b5a094c775ba3037db").build();
+            return AdlService.getService().getOrgTestCaller().getPlanInfoSync(request);
+        }, new RequestCallback<PlanInfoData>() {
             @Override
             public void onSuccess(PlanInfoData data) {
                 if (data != null) {

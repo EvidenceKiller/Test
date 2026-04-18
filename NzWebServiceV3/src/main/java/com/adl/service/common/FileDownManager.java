@@ -4,12 +4,15 @@ import android.text.TextUtils;
 
 import com.adl.service.AdlService;
 import com.adl.service.ConfigService;
+import com.adl.service.db.DaoManagerProxy;
 import com.adl.service.db.FileDownDao;
-import com.adl.service.entity.FileDownInfoEntity;
-import com.adl.service.entity.StudentEntity;
-import com.adl.service.entity.TeacherEntity;
+import com.adl.service.db.entity.FileDownInfoEntity;
+import com.adl.service.db.entity.StudentEntity;
+import com.adl.service.db.entity.TeacherEntity;
 import com.adl.service.internal.RetrofitClient;
 import com.adl.service.log.NzLog;
+import com.adl.service.utils.FileUtil;
+import com.adl.service.utils.InnerUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -153,7 +156,7 @@ public final class FileDownManager {
                 listCallback.onStart();
             }
 
-            FileDownDao fileDao = AdlService.getService().getFileDownDao();
+            FileDownDao fileDao = DaoManagerProxy.getInstance().getFileDownDao();
             List<FileDownInfoEntity> infoList = fileDao.getAll();
 
             FileDownSampleCallback callback = new FileDownSampleCallback() {
@@ -268,7 +271,7 @@ public final class FileDownManager {
                 listCallback.onStart();
             }
 
-            FileDownDao fileDao = AdlService.getService().getFileDownDao();
+            FileDownDao fileDao = DaoManagerProxy.getInstance().getFileDownDao();
 
             FileDownSampleCallback callback = new FileDownSampleCallback() {
                 @Override
@@ -379,7 +382,7 @@ public final class FileDownManager {
     public FileDownInfoEntity queryDownInfo(String url) {
         if (TextUtils.isEmpty(url)) return null;
         String fileName = InnerUtil.md5(formatFaceUrl(url));
-        return AdlService.getService().getFileDownDao().queryInfoByFileName(fileName);
+        return DaoManagerProxy.getInstance().getFileDownDao().queryInfoByFileName(fileName);
     }
 
     // 根据Url删除
@@ -393,7 +396,7 @@ public final class FileDownManager {
         }
 
         if (fileNames.isEmpty()) return;
-        AdlService.getService().getFileDownDao().clearByFileNames(fileNames);
+        DaoManagerProxy.getInstance().getFileDownDao().clearByFileNames(fileNames);
     }
 
     // 清空保存的人脸文件
@@ -407,7 +410,7 @@ public final class FileDownManager {
     //  清空学生人脸
     public void clearStudentFace() {
         //  清空数据库
-        AdlService.getService().getFileDownDao().clearAllByType(IDefine.FileDownloadTypeStudentHead);
+        DaoManagerProxy.getInstance().getFileDownDao().clearAllByType(IDefine.FileDownloadTypeStudentHead);
         //  清空文件
         File dataDir = AdlService.getService().getContext().getDataDir();
         //  清空人脸文件
@@ -418,7 +421,7 @@ public final class FileDownManager {
     //  清空教师人脸
     public void clearTeacherFace() {
         //  清空数据库
-        AdlService.getService().getFileDownDao().clearAllByType(IDefine.FileDownloadTypeTeacherHead);
+        DaoManagerProxy.getInstance().getFileDownDao().clearAllByType(IDefine.FileDownloadTypeTeacherHead);
         //  清空文件
         File dataDir = AdlService.getService().getContext().getDataDir();
         //  清空人脸文件

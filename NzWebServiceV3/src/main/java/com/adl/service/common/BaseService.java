@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.adl.service.ConfigService;
 import com.adl.service.internal.RetrofitClient;
+import com.adl.service.utils.InnerUtil;
 
 import java.util.HashMap;
 import java.util.Map;

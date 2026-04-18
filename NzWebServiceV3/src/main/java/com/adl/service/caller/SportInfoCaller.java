@@ -2,18 +2,17 @@ package com.adl.service.caller;
 
 import com.adl.service.callback.RequestCallback;
 import com.adl.service.exception.NzBaseException;
-import com.adl.service.web.request.AccountRecordPageRequest;
-import com.adl.service.web.request.OrgRecordPageRequest;
-import com.adl.service.web.request.ReportNfSportRequest;
-import com.adl.service.web.request.ReportStudentCompetitionRequest;
-import com.adl.service.web.request.ReportStudentMeetRequest;
-import com.adl.service.web.request.ReportStudentPlanRequest;
-import com.adl.service.web.request.ReportStudentSportRequest;
-import com.adl.service.web.request.ReportTeacherSportRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.response.AccountRecordData;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.OrgRecordData;
+import com.adl.service.http.request.AccountRecordPageRequest;
+import com.adl.service.http.request.OrgRecordPageRequest;
+import com.adl.service.http.request.ReportStudentCompetitionRequest;
+import com.adl.service.http.request.ReportStudentMeetRequest;
+import com.adl.service.http.request.ReportStudentPlanRequest;
+import com.adl.service.http.request.ReportStudentSportRequest;
+import com.adl.service.http.request.ReportTeacherSportRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.data.AccountRecordData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.OrgRecordData;
 
 /**
  * SportInfoCaller。
@@ -115,18 +114,6 @@ public interface SportInfoCaller {
      * <p>同步调用。</p>
      */
     Boolean reportStudentAllSportSync(ReportStudentSportRequest request) throws NzBaseException;
-
-    /**
-     * 上报市民通运动成绩
-     * <p>异步调用。</p>
-     */
-    long reportNfSportAsync(RequestScope scope, ReportNfSportRequest request, RequestCallback<Boolean> callback);
-
-    /**
-     * 上报市民通运动成绩
-     * <p>同步调用。</p>
-     */
-    Boolean reportNfSportSync(ReportNfSportRequest request) throws NzBaseException;
 
     /**
      * 获取机构/年级运动记录分页

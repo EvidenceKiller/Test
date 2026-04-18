@@ -1,6 +1,6 @@
 package com.adl.service.db;
 
-import com.adl.service.entity.DictEntity;
+import com.adl.service.db.entity.DictEntity;
 
 import java.util.List;
 

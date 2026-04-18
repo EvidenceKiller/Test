@@ -2,7 +2,7 @@ package com.adl.service.http.interceptor;
 
 import com.adl.auth.core.AdlAuthFactory;
 import com.adl.service.AdlService;
-import com.adl.service.common.CommonUtil;
+import com.adl.service.utils.CommonUtil;
 import com.adl.service.log.NzLog;
 import com.ssp.oss.sdk.core.OssClient;
 

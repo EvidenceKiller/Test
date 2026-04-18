@@ -8,28 +8,26 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.adl.service.AdlService;
+import com.adl.service.callback.GetPageResult;
 import com.adl.service.callback.RequestCallback;
-import com.adl.service.web.request.BannerDetailListRequest;
-import com.adl.service.web.request.DeviceFocusListRequest;
-import com.adl.service.web.request.DictMapRequest;
-import com.adl.service.web.request.RequestScope;
-import com.adl.service.web.request.SceneListRequest;
-import com.adl.service.web.request.SportSkuDetailRequest;
-import com.adl.service.web.request.SportSkuPageRequest;
-import com.adl.service.web.request.UploadDeviceNameRequest;
-import com.adl.service.web.request.WikiDetailRequest;
-import com.adl.service.web.request.WikiPageRequest;
-import com.adl.service.web.request.WikiTypePageRequest;
-import com.adl.service.web.response.BannerDetailData;
-import com.adl.service.web.response.BasePageData;
-import com.adl.service.web.response.DeviceFocusData;
-import com.adl.service.web.response.DictMapData;
-import com.adl.service.web.response.SceneData;
-import com.adl.service.web.response.SportSkuDetailData;
-import com.adl.service.web.response.SportSkuData;
-import com.adl.service.web.response.WikiData;
-import com.adl.service.web.response.WikiDetailData;
-import com.adl.service.web.response.WikiTypeData;
+import com.adl.service.http.request.BannerDetailListRequest;
+import com.adl.service.http.request.DeviceFocusListRequest;
+import com.adl.service.http.request.DictMapRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.SceneListRequest;
+import com.adl.service.http.request.SportSkuDetailRequest;
+import com.adl.service.http.request.SportSkuPageRequest;
+import com.adl.service.http.request.UploadDeviceNameRequest;
+import com.adl.service.http.request.WikiDetailRequest;
+import com.adl.service.http.request.WikiPageRequest;
+import com.adl.service.http.request.WikiTypePageRequest;
+import com.adl.service.data.BannerDetailData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.DeviceFocusData;
+import com.adl.service.data.DictMapData;
+import com.adl.service.data.SceneData;
+import com.adl.service.data.SportSkuDetailData;
+import com.adl.service.data.SportSkuData;
 import com.adl.ts.general.R;
 
 import java.util.List;
@@ -55,6 +53,8 @@ public class V3OperationCallerTestActivity extends AppCompatActivity {
 
         createButton("getDetailListAsync").setOnClickListener(v -> getBannerDetailListAsync());
         createButton("getDetailListSync").setOnClickListener(v -> getBannerDetailListSync());
+        createButton("getSportSkuPagesAllAsync").setOnClickListener(v -> getSportSkuPagesAllAsync());
+        createButton("getSportSkuPagesAllSync").setOnClickListener(v -> getSportSkuPagesAllSync());
         createButton("getSportSkuPageAsync").setOnClickListener(v -> getSportSkuPageAsync());
         createButton("getSportSkuPageSync").setOnClickListener(v -> getSportSkuPageSync());
         createButton("getSportSkuDetailAsync").setOnClickListener(v -> getSportSkuDetailAsync());
@@ -63,12 +63,6 @@ public class V3OperationCallerTestActivity extends AppCompatActivity {
         createButton("getDictMapSync").setOnClickListener(v -> getDictMapSync());
         createButton("getSceneListAsync").setOnClickListener(v -> getSceneListAsync());
         createButton("getSceneListSync").setOnClickListener(v -> getSceneListSync());
-        createButton("getWikiTypePageAsync").setOnClickListener(v -> getWikiTypePageAsync());
-        createButton("getWikiTypePageSync").setOnClickListener(v -> getWikiTypePageSync());
-        createButton("getWikiPageAsync").setOnClickListener(v -> getWikiPageAsync());
-        createButton("getWikiPageSync").setOnClickListener(v -> getWikiPageSync());
-        createButton("getWikiDetailAsync").setOnClickListener(v -> getWikiDetailAsync());
-        createButton("getWikiDetailSync").setOnClickListener(v -> getWikiDetailSync());
         createButton("uploadDeviceNameAsync").setOnClickListener(v -> uploadDeviceNameAsync());
         createButton("uploadDeviceNameSync").setOnClickListener(v -> uploadDeviceNameSync());
         createButton("getDeviceFocusListAsync").setOnClickListener(v -> getDeviceFocusListAsync());
@@ -76,7 +70,7 @@ public class V3OperationCallerTestActivity extends AppCompatActivity {
     }
 
     private BannerDetailListRequest buildBannerDetailListRequest() {
-        return BannerDetailListRequest.builder()
+        return BannerDetailListRequest.builder("10110101")
                 .build();
     }
 
@@ -90,7 +84,7 @@ public class V3OperationCallerTestActivity extends AppCompatActivity {
     }
 
     private DictMapRequest buildDictMapRequest() {
-        return DictMapRequest.builder("0401010001").build();
+        return DictMapRequest.builder("9901060001").build();
     }
 
     private SceneListRequest buildSceneListRequest() {
@@ -175,6 +169,62 @@ public class V3OperationCallerTestActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Log.d(TAG, "OperationCallerTestActivity::getDetailListSync::onError : error : " + error);
+                resultView.setText(error);
+            }
+        });
+    }
+
+    private void getSportSkuPagesAllAsync() {
+        SportSkuPageRequest request = buildSportSkuPageRequest();
+        AdlService.getService().getOperationCaller().getSportSkuPagesAllAsync(RequestScope.of(this), request, new RequestCallback<GetPageResult>() {
+            @Override
+            public void onSuccess(GetPageResult data) {
+                if (data != null) {
+                    Log.d(TAG, "OperationCallerTestActivity::getSportSkuPagesAllAsync::onSuccess : data : " + data);
+                    resultView.setText(data.toString());
+                } else {
+                    Log.d(TAG, "OperationCallerTestActivity::getSportSkuPagesAllAsync::onSuccess : data is null");
+                }
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                Log.d(TAG, "OperationCallerTestActivity::getSportSkuPagesAllAsync::onFail : code : " + code + ", msg : " + msg);
+                resultView.setText(msg);
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.d(TAG, "OperationCallerTestActivity::getSportSkuPagesAllAsync::onError : error : " + error);
+                resultView.setText(error);
+            }
+        });
+    }
+
+    private void getSportSkuPagesAllSync() {
+        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
+            SportSkuPageRequest request = buildSportSkuPageRequest();
+            return AdlService.getService().getOperationCaller().getSportSkuPagesAllSync(request);
+        }, new RequestCallback<GetPageResult>() {
+            @Override
+            public void onSuccess(GetPageResult data) {
+                if (data != null) {
+                    Log.d(TAG, "OperationCallerTestActivity::getSportSkuPagesAllSync::onSuccess : data : " + data);
+                    resultView.setText(data.toString());
+                } else {
+                    Log.d(TAG, "OperationCallerTestActivity::getSportSkuPagesAllSync::onSuccess : data is null");
+                }
+            }
+
+            @Override
+            public void onFail(int code, String msg) {
+                Log.d(TAG, "OperationCallerTestActivity::getSportSkuPagesAllSync::onFail : code : " + code + ", msg : " + msg);
+                resultView.setText(msg);
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.d(TAG, "OperationCallerTestActivity::getSportSkuPagesAllSync::onError : error : " + error);
                 resultView.setText(error);
             }
         });
@@ -403,174 +453,6 @@ public class V3OperationCallerTestActivity extends AppCompatActivity {
             @Override
             public void onError(String error) {
                 Log.d(TAG, "OperationCallerTestActivity::getSceneListSync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void getWikiTypePageAsync() {
-        WikiTypePageRequest request = buildWikiTypePageRequest();
-        AdlService.getService().getOperationCaller().getWikiTypePageAsync(RequestScope.of(this), request, new RequestCallback<BasePageData<WikiTypeData>>() {
-            @Override
-            public void onSuccess(BasePageData<WikiTypeData> data) {
-                if (data != null) {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiTypePageAsync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiTypePageAsync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiTypePageAsync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiTypePageAsync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void getWikiTypePageSync() {
-        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
-            WikiTypePageRequest request = buildWikiTypePageRequest();
-            return AdlService.getService().getOperationCaller().getWikiTypePageSync(request);
-        }, new RequestCallback<BasePageData<WikiTypeData>>() {
-            @Override
-            public void onSuccess(BasePageData<WikiTypeData> data) {
-                if (data != null) {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiTypePageSync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiTypePageSync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiTypePageSync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiTypePageSync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void getWikiPageAsync() {
-        WikiPageRequest request = buildWikiPageRequest();
-        AdlService.getService().getOperationCaller().getWikiPageAsync(RequestScope.of(this), request, new RequestCallback<BasePageData<WikiData>>() {
-            @Override
-            public void onSuccess(BasePageData<WikiData> data) {
-                if (data != null) {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiPageAsync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiPageAsync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiPageAsync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiPageAsync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void getWikiPageSync() {
-        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
-            WikiPageRequest request = buildWikiPageRequest();
-            return AdlService.getService().getOperationCaller().getWikiPageSync(request);
-        }, new RequestCallback<BasePageData<WikiData>>() {
-            @Override
-            public void onSuccess(BasePageData<WikiData> data) {
-                if (data != null) {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiPageSync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiPageSync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiPageSync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiPageSync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void getWikiDetailAsync() {
-        WikiDetailRequest request = buildWikiDetailRequest();
-        AdlService.getService().getOperationCaller().getWikiDetailAsync(RequestScope.of(this), request, new RequestCallback<WikiDetailData>() {
-            @Override
-            public void onSuccess(WikiDetailData data) {
-                if (data != null) {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiDetailAsync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiDetailAsync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiDetailAsync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiDetailAsync::onError : error : " + error);
-                resultView.setText(error);
-            }
-        });
-    }
-
-    private void getWikiDetailSync() {
-        AdlService.getService().executeSyncOnIo(RequestScope.of(this), () -> {
-            WikiDetailRequest request = buildWikiDetailRequest();
-            return AdlService.getService().getOperationCaller().getWikiDetailSync(request);
-        }, new RequestCallback<WikiDetailData>() {
-            @Override
-            public void onSuccess(WikiDetailData data) {
-                if (data != null) {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiDetailSync::onSuccess : data : " + data);
-                    resultView.setText(data.toString());
-                } else {
-                    Log.d(TAG, "OperationCallerTestActivity::getWikiDetailSync::onSuccess : data is null");
-                }
-            }
-
-            @Override
-            public void onFail(int code, String msg) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiDetailSync::onFail : code : " + code + ", msg : " + msg);
-                resultView.setText(msg);
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d(TAG, "OperationCallerTestActivity::getWikiDetailSync::onError : error : " + error);
                 resultView.setText(error);
             }
         });

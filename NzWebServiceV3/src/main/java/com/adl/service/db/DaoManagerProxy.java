@@ -3,7 +3,6 @@ package com.adl.service.db;
 import android.content.Context;
 
 import com.adl.service.common.InnerPreferences;
-import com.adl.service.db.migration.Migration_17_to_18;
 
 import java.io.File;
 
@@ -13,13 +12,15 @@ import androidx.room.Room;
 /**
  * 封装 {@link DaoManager}（Room 数据库），统一通过本类获取各 DAO。
  * <p>
- * 请通过 {@link com.adl.service.AdlService} 获取实例；勿在宿主 App 中直接调用 {@link #create}。
+ * 单例：先由 {@link com.adl.service.AdlService} 通过 {@link #init} 初始化，其它处可用 {@link #getInstance()}。
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
 public final class DaoManagerProxy {
 
-    private static final String DB_NAME = "_local_service_1";
+    private static final String DB_NAME = "_local_service_v3";
     private static final int DB_VERSION = 4;
+
+    private static volatile DaoManagerProxy sInstance;
 
     private final DaoManager mDaoManager;
 
@@ -28,20 +29,33 @@ public final class DaoManagerProxy {
     }
 
     /**
-     * 仅供本 library 内部（由 {@link com.adl.service.AdlService} 的私有工厂）初始化使用。
+     * 初始化单例（幂等）。应由 {@link com.adl.service.AdlService} 在 {@link InnerPreferences#init} 之后调用。
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
-    public static DaoManagerProxy create(Context context) {
-        return DaoManagerProxyFactory.create(context);
+    public static void init(Context context) {
+        if (sInstance == null) {
+            synchronized (DaoManagerProxy.class) {
+                if (sInstance == null) {
+                    Context app = context.getApplicationContext();
+                    sInstance = new DaoManagerProxy(app);
+                }
+            }
+        }
+    }
+
+    /**
+     * 返回已初始化的单例；若尚未 {@link #init}，抛出 {@link IllegalStateException}。
+     */
+    public static DaoManagerProxy getInstance() {
+        if (sInstance == null) {
+            throw new IllegalStateException("DaoManagerProxy not initialized; call create(Context) first");
+        }
+        return sInstance;
     }
 
     private static final class DaoManagerProxyFactory {
 
         private DaoManagerProxyFactory() {}
-
-        static DaoManagerProxy create(Context context) {
-            return new DaoManagerProxy(context);
-        }
 
         private static DaoManager buildRoom(Context context) {
             InnerPreferences pf = InnerPreferences.instance();
@@ -69,8 +83,6 @@ public final class DaoManagerProxy {
 
             DaoManager dm = Room.databaseBuilder(context, DaoManager.class, DB_NAME)
                     .allowMainThreadQueries()
-                    .fallbackToDestructiveMigration()
-                    .addMigrations(new Migration_17_to_18())
                     .build();
             pf.putInt("_db_version", DB_VERSION);
             return dm;
@@ -81,8 +93,8 @@ public final class DaoManagerProxy {
         return mDaoManager.getStudentDao();
     }
 
-    public CitizenDao getCitizenDao() {
-        return mDaoManager.getCitizenDao();
+    public CompetitionDao getCompetitionDao() {
+        return mDaoManager.getCompetitionDao();
     }
 
     public TeacherDao getTeacherDao() {
@@ -113,35 +125,27 @@ public final class DaoManagerProxy {
         return mDaoManager.getSceneSportDao();
     }
 
-    public RecordLocalDao getRecordLocalDao() {
-        return mDaoManager.getRecordLocalDao();
-    }
-
-    public RecordUploadDao getRecordUploadDao() {
-        return mDaoManager.getRecordUploadDao();
-    }
-
     public DictDao getDictDao() {
         return mDaoManager.getDictDao();
     }
 
-    public MeetDao getMeetDao() {
-        return mDaoManager.getMeetDao();
+    public SportMeetDao getSportMeetDao() {
+        return mDaoManager.getSportMeetDao();
     }
 
-    public MeetGroupTeamDao getMeetGroupTeamDao() {
-        return mDaoManager.getMeetGroupTeamDao();
+    public SportMeetGroupTeamDao getSportMeetGroupTeamDao() {
+        return mDaoManager.getSportMeetGroupTeamDao();
     }
 
-    public MeetGroupDetailsDao getMeetGroupDetailsDao() {
-        return mDaoManager.getMeetGroupDetailsDao();
-    }
-
-    public TeacherSportDao getTeacherSportDao() {
-        return mDaoManager.getTeacherSportDao();
+    public SportMeetGroupDetailDao getSportMeetGroupDetailsDao() {
+        return mDaoManager.getSportMeetGroupDetailDao();
     }
 
     public SceneDao getSceneDao() {
         return mDaoManager.getSceneDao();
+    }
+
+    public LoginInfoDao getLoginInfoDao() {
+        return mDaoManager.getLoginInfoDao();
     }
 }
