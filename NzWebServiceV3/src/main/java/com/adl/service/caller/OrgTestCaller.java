@@ -26,7 +26,7 @@ public interface OrgTestCaller {
 
     void reLoadAllOrgTestDataSync(boolean syncStandard) throws NzBaseException;
 
-    void clearStandardConfigDataSync();
+    void clearStandardConfigDataSync() throws NzBaseException;
 
     long getStandardConfigPagesAllAsync(RequestScope scope, StandardConfigPageRequest request, RequestCallback<GetPageResult> callback);
 
@@ -44,7 +44,7 @@ public interface OrgTestCaller {
      */
     List<StandardConfigData> getStandardConfigPageSync(StandardConfigPageRequest request) throws NzBaseException;
 
-    void clearPlanStudentDataSync();
+    void clearPlanStudentDataSync() throws NzBaseException;
 
     long getPlanStudentPagesAllASync(RequestScope scope, PlanStudentPageRequest request, RequestCallback<GetPageResult> callback);
 
@@ -62,7 +62,7 @@ public interface OrgTestCaller {
      */
     BasePageData<PlanStudentData> getPlanStudentPageSync(PlanStudentPageRequest request) throws NzBaseException;
 
-    void clearPlanDataSync();
+    void clearPlanDataSync() throws NzBaseException;
 
     /**
      * 获取所有的分页计划列表

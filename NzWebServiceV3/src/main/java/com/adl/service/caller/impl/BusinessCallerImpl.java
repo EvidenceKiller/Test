@@ -36,7 +36,7 @@ import com.adl.service.data.ResTypeData;
 import com.adl.service.data.SportMeetData;
 import com.adl.service.data.TrainPlanInfoData;
 import com.adl.service.data.TrainPlanOneDayProjectData;
-import com.adl.service.web.BusinessService;
+import com.adl.service.repository.BusinessRepository;
 
 import java.util.List;
 
@@ -47,142 +47,122 @@ import io.reactivex.rxjava3.disposables.Disposable;
  */
 public final class BusinessCallerImpl implements BusinessCaller {
 
-    private final BusinessService businessService;
+    private final BusinessRepository businessRepository;
 
-    public BusinessCallerImpl(BusinessService businessService) {
-        this.businessService = businessService;
+    public BusinessCallerImpl() {
+        this.businessRepository = new BusinessRepository();
     }
 
     @Override
     public long saveGroupAsync(RequestScope scope, SaveGroupRequest request, RequestCallback<Boolean> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.saveGroup(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.saveGroup(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public Boolean saveGroupSync(SaveGroupRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.saveGroup(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.saveGroup(request));
     }
 
     @Override
     public long getGroupAsync(RequestScope scope, GetGroupRequest request, RequestCallback<GroupData> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.getGroup(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getGroup(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public GroupData getGroupSync(GetGroupRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.getGroup(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.getGroup(request));
     }
 
     @Override
     public long getTrainPlanOneDayProjectListAsync(RequestScope scope, TrainPlanOneDayProjectListRequest request, RequestCallback<List<TrainPlanOneDayProjectData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.getTrainPlanOneDayProjectList(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getTrainPlanOneDayProjectList(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<TrainPlanOneDayProjectData> getTrainPlanOneDayProjectListSync(TrainPlanOneDayProjectListRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.getTrainPlanOneDayProjectList(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.getTrainPlanOneDayProjectList(request));
     }
 
     @Override
     public long getTrainPlanInfoPageAsync(RequestScope scope, TrainPlanInfoPageRequest request, RequestCallback<BasePageData<TrainPlanInfoData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.getTrainPlanInfoPage(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getTrainPlanInfoPage(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public BasePageData<TrainPlanInfoData> getTrainPlanInfoPageSync(TrainPlanInfoPageRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.getTrainPlanInfoPage(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.getTrainPlanInfoPage(request));
     }
 
     @Override
     public long joinCompetitionRankAsync(RequestScope scope, JoinCompetitionRankRequest request, RequestCallback<Boolean> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.joinCompetitionRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.joinCompetitionRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public Boolean joinCompetitionRankSync(JoinCompetitionRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.joinCompetitionRank(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.joinCompetitionRank(request));
     }
 
     @Override
     public long getCompetitionRankDetailAsync(RequestScope scope, CompetitionRankDetailRequest request, RequestCallback<CompetitionRankDetailData> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.getCompetitionRankDetail(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getCompetitionRankDetail(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public CompetitionRankDetailData getCompetitionRankDetailSync(CompetitionRankDetailRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.getCompetitionRankDetail(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.getCompetitionRankDetail(request));
     }
 
     @Override
     public long getCompetitionPagesAllAsync(RequestScope scope, CompetitionPageRequest request, RequestCallback<GetPageResult> callback) {
         CallerUtil.assertCurrent(request);
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.schedule(BasePagePersistence.persistAllPagesAsSingle(
-                BusinessPersistenceHelper.createCompetitionPagePreparer(),
-                BusinessPersistenceHelper.createCompetitionPageRequester(request, req -> businessService.getCompetitionPage(req)),
-                BusinessPersistenceHelper.createCompetitionPagePersister()), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getCompetitionPagesAll(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public GetPageResult getCompetitionPagesAllSync(CompetitionPageRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGet(BasePagePersistence.persistAllPagesAsSingle(
-                BusinessPersistenceHelper.createCompetitionPagePreparer(),
-                BusinessPersistenceHelper.createCompetitionPageRequester(request, req -> businessService.getCompetitionPage(req)),
-                BusinessPersistenceHelper.createCompetitionPagePersister()));
+        return RxCallbackScheduler.blockingGet(businessRepository.getCompetitionPagesAll(request));
     }
 
     @Override
     public long getCompetitionPageAsync(RequestScope scope, CompetitionPageRequest request, RequestCallback<BasePageData<CompetitionData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(BasePagePersistence.persistOnePageAsSingle(
-                BasePersistence.createBaseRequester(request, req -> businessService.getCompetitionPage(req)),
-                BusinessPersistenceHelper.createCompetitionPagePersister()), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getCompetitionPage(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public BasePageData<CompetitionData> getCompetitionPageSync(CompetitionPageRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(BasePagePersistence.persistOnePageAsSingle(
-                BasePersistence.createBaseRequester(request, req -> businessService.getCompetitionPage(req)),
-                BusinessPersistenceHelper.createCompetitionPagePersister()));
-    }
-
-    @Override
-    public void clearSportMeetDataSync() {
-        DaoManagerProxy.getInstance().getSportMeetDao().clearAll();
-        DaoManagerProxy.getInstance().getSportMeetGroupTeamDao().clearAll();
-        DaoManagerProxy.getInstance().getSportMeetGroupDetailsDao().clearAll();
+        return RxCallbackScheduler.blockingGet(businessRepository.getCompetitionPage(request));
     }
 
     @Override
     public long getSportMeetPagesAllAsync(RequestScope scope, SportMeetPageRequest request, RequestCallback<GetPageResult> callback) {
         CallerUtil.assertCurrent(request);
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.schedule(BasePagePersistence.persistAllPagesAsSingle(
-                BusinessPersistenceHelper.createSportMeetPagePreparer(request.getAppCode()),
-                BusinessPersistenceHelper.createSportMeetPageRequester(request, req -> businessService.getSportMeetPage(req)),
-                BusinessPersistenceHelper.createSportMeetPagePersister(request.getAppCode())), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getSportMeetPagesAll(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
@@ -190,91 +170,84 @@ public final class BusinessCallerImpl implements BusinessCaller {
     @Override
     public GetPageResult getSportMeetPagesAllSync(SportMeetPageRequest request) throws NzBaseException {
         CallerUtil.assertCurrent(request);
-        return RxCallbackScheduler.blockingGet(BasePagePersistence.persistAllPagesAsSingle(
-                BusinessPersistenceHelper.createSportMeetPagePreparer(request.getAppCode()),
-                BusinessPersistenceHelper.createSportMeetPageRequester(request, req -> businessService.getSportMeetPage(req)),
-                BusinessPersistenceHelper.createSportMeetPagePersister(request.getAppCode())));
+        return RxCallbackScheduler.blockingGet(businessRepository.getSportMeetPagesAll(request));
     }
 
     @Override
     public long getSportMeetPageAsync(RequestScope scope, SportMeetPageRequest request, RequestCallback<BasePageData<SportMeetData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(BasePagePersistence.persistOnePageAsSingle(
-                BasePersistence.createBaseRequester(request, req -> businessService.getSportMeetPage(request)),
-                BusinessPersistenceHelper.createSportMeetPagePersister(request.getAppCode())), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getSportMeetPage(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public BasePageData<SportMeetData> getSportMeetPageSync(SportMeetPageRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(BasePagePersistence.persistOnePageAsSingle(
-                BasePersistence.createBaseRequester(request, req -> businessService.getSportMeetPage(request)),
-                BusinessPersistenceHelper.createSportMeetPagePersister(request.getAppCode())));
+        return RxCallbackScheduler.blockingGet(businessRepository.getSportMeetPage(request));
     }
 
     @Override
     public long downloadGroupTeamPageAsync(RequestScope scope, DownloadGroupTeamPageRequest request, RequestCallback<List<GroupTeamData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.downloadGroupTeamPage(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.downloadGroupTeamPage(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<GroupTeamData> downloadGroupTeamPageSync(DownloadGroupTeamPageRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.downloadGroupTeamPage(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.downloadGroupTeamPage(request));
     }
 
     @Override
     public long downloadGroupTeamDetailPageAsync(RequestScope scope, DownloadGroupTeamDetailPageRequest request, RequestCallback<List<GroupTeamDetailData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.downloadGroupTeamDetailPage(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.downloadGroupTeamDetailPage(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<GroupTeamDetailData> downloadGroupTeamDetailPageSync(DownloadGroupTeamDetailPageRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.downloadGroupTeamDetailPage(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.downloadGroupTeamDetailPage(request));
     }
 
     @Override
     public long getResTypeListAsync(RequestScope scope, ResTypeListRequest request, RequestCallback<List<ResTypeData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.getResTypeList(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getResTypeList(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<ResTypeData> getResTypeListSync(ResTypeListRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.getResTypeList(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.getResTypeList(request));
     }
 
     @Override
     public long getResPageAsync(RequestScope scope, ResPageRequest request, RequestCallback<BasePageData<ResData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.getResPage(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getResPage(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public BasePageData<ResData> getResPageSync(ResPageRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.getResPage(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.getResPage(request));
     }
 
     @Override
     public long getResInfoAsync(RequestScope scope, ResInfoRequest request, RequestCallback<ResData> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(businessService.getResInfo(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(businessRepository.getResInfo(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public ResData getResInfoSync(ResInfoRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(businessService.getResInfo(request));
+        return RxCallbackScheduler.blockingGet(businessRepository.getResInfo(request));
     }
 }

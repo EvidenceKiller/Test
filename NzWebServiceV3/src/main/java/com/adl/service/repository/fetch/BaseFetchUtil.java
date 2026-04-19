@@ -1,10 +1,10 @@
-package com.adl.service.net;
+package com.adl.service.repository.fetch;
 
 import com.adl.service.data.BaseResponse;
 import com.adl.service.exception.NzEmptyResponseException;
 import com.adl.service.exception.NzNetworkException;
 
-public class BaseNetUtil {
+public class BaseFetchUtil {
 
     public static <T> T scheduleResponse(BaseResponse<T> response) throws NzNetworkException, NzEmptyResponseException {
         if (response == null) {

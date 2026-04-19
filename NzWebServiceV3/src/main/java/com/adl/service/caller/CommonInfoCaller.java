@@ -6,6 +6,7 @@ import com.adl.service.http.request.ClassInfoRequest;
 import com.adl.service.http.request.ClassListRequest;
 import com.adl.service.http.request.DeviceActiveRequest;
 import com.adl.service.http.request.DictRequest;
+import com.adl.service.http.request.EmptyRequest;
 import com.adl.service.http.request.RequestScope;
 import com.adl.service.http.request.StudentPageRequest;
 import com.adl.service.http.request.TeacherListRequest;
@@ -30,53 +31,53 @@ public interface CommonInfoCaller {
 
     void reloadCommonInfoData(boolean forceUpdate, int faceType, long pageSize) throws NzBaseException;
 
-    List<StudentData> queryAllStudentSync();
+    List<StudentData> queryAllStudentSync() throws NzBaseException;
 
-    List<StudentData> queryAllStudentWithFaceDataSync();
+    List<StudentData> queryAllStudentWithFaceDataSync() throws NzBaseException;
 
-    int queryAllStudentCountSync();
+    int queryAllStudentCountSync() throws NzBaseException;
 
-    StudentData queryStudentByAccountIdSync(String accountId);
+    StudentData queryStudentByAccountIdSync(String accountId) throws NzBaseException;
 
-    List<StudentData> queryStudentByAccountIdsSync(List<String> accountIds);
+    List<StudentData> queryStudentByAccountIdsSync(List<String> accountIds) throws NzBaseException;
 
-    List<StudentData> queryStudentByClassIdsSync(List<String> classIds);
+    List<StudentData> queryStudentByClassIdsSync(List<String> classIds) throws NzBaseException;
 
-    List<StudentData> queryStudentByCarNumSync(String cardNum);
+    List<StudentData> queryStudentByCarNumSync(String cardNum) throws NzBaseException;
 
-    List<TeacherData> queryAllTeacherSync();
+    List<TeacherData> queryAllTeacherListSync() throws NzBaseException;
 
-    List<TeacherData> queryAllTeacherWithFaceDataSync();
+    List<TeacherData> queryAllTeacherListWithFaceDataSync() throws NzBaseException;
 
-    int queryAllTeacherCountSync(RequestCallback callback);
+    int queryAllTeacherCountSync(RequestCallback callback) throws NzBaseException;
 
-    TeacherData queryTeacherByAccountIdSync(String accountId);
+    TeacherData queryTeacherByAccountIdSync(String accountId) throws NzBaseException;
 
-    List<TeacherData> queryTeacherByAccountIdsSync(List<String> accountIds);
+    List<TeacherData> queryTeacherListByAccountIdsSync(List<String> accountIds) throws NzBaseException;
 
     /**
      * 获取机构年级树
      * <p>异步调用。</p>
      */
-    long getGradeTreeAsync(RequestScope scope, RequestCallback<List<GradeTreeData>> callback);
+    long getGradeTreeAsync(RequestScope scope, EmptyRequest request, RequestCallback<List<GradeTreeData>> callback);
 
     /**
      * 获取机构年级树
      * <p>同步调用。</p>
      */
-    List<GradeTreeData> getGradeTreeSync() throws NzBaseException;
+    List<GradeTreeData> getGradeTreeSync(EmptyRequest request) throws NzBaseException;
 
     /**
      * 获取年级列表
      * <p>异步调用。</p>
      */
-    long getGradeChineseNameListAsync(RequestScope scope, RequestCallback<List<GradeChineseNameData>> callback);
+    long getGradeChineseNameListAsync(RequestScope scope, EmptyRequest request, RequestCallback<List<GradeChineseNameData>> callback);
 
     /**
      * 获取年级列表
      * <p>同步调用。</p>
      */
-    List<GradeChineseNameData> getGradeChineseNameListSync() throws NzBaseException;
+    List<GradeChineseNameData> getGradeChineseNameListSync(EmptyRequest request) throws NzBaseException;
 
     /**
      * 获取班级列表
@@ -102,29 +103,31 @@ public interface CommonInfoCaller {
      */
     ClassInfoData getClassInfoSync(ClassInfoRequest request) throws NzBaseException;
 
+    LoginInfoData queryLoginInfoSync() throws NzBaseException;
+
     /**
      * 获取登录用户信息
      * <p>异步调用。</p>
      */
-    long getLoginInfoAsync(RequestScope scope, RequestCallback<LoginInfoData> callback);
+    long getLoginInfoAsync(RequestScope scope, EmptyRequest request, RequestCallback<LoginInfoData> callback);
 
     /**
      * 获取登录用户信息
      * <p>同步调用。</p>
      */
-    LoginInfoData getLoginInfoSync() throws NzBaseException;
+    LoginInfoData getLoginInfoSync(EmptyRequest request) throws NzBaseException;
 
     /**
      * 获取学年学期列表
      * <p>异步调用。</p>
      */
-    long getAcayearListAsync(RequestScope scope, RequestCallback<List<AcayearData>> callback);
+    long getAcayearListAsync(RequestScope scope, EmptyRequest request, RequestCallback<List<AcayearData>> callback);
 
     /**
      * 获取学年学期列表
      * <p>同步调用。</p>
      */
-    List<AcayearData> getAcayearListSync() throws NzBaseException;
+    List<AcayearData> getAcayearListSync(EmptyRequest request) throws NzBaseException;
 
     long getTeacherListsAllAsync(RequestScope scope, TeacherListRequest request, RequestCallback<GetPageResult> callback);
 

@@ -2,10 +2,7 @@ package com.adl.service.repository;
 
 import android.text.TextUtils;
 
-import com.adl.service.AdlService;
 import com.adl.service.callback.GetPageResult;
-import com.adl.service.callback.RequestCallback;
-import com.adl.service.caller.impl.CallerUtil;
 import com.adl.service.common.FileDownManager;
 import com.adl.service.common.IDefine;
 import com.adl.service.common.InnerPreferences;
@@ -21,40 +18,28 @@ import com.adl.service.data.StudentData;
 import com.adl.service.data.TeacherData;
 import com.adl.service.db.DaoManagerProxy;
 import com.adl.service.db.StudentDao;
-import com.adl.service.db.entity.LoginInfoEntity;
-import com.adl.service.db.entity.StudentEntity;
-import com.adl.service.db.entity.TeacherEntity;
 import com.adl.service.exception.NzBaseException;
 import com.adl.service.http.request.ClassInfoRequest;
 import com.adl.service.http.request.ClassListRequest;
 import com.adl.service.http.request.DeviceActiveRequest;
 import com.adl.service.http.request.DictRequest;
-import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.EmptyRequest;
 import com.adl.service.http.request.StudentPageRequest;
 import com.adl.service.http.request.TeacherListRequest;
-import com.adl.service.internal.RxCallbackScheduler;
-import com.adl.service.internal.SubscriptionManager;
-import com.adl.service.local.CommonInfoLocalHelper;
 import com.adl.service.log.NzLog;
-import com.adl.service.net.CommonInfoNetHelper;
-import com.adl.service.persistence.BasePersistence;
-import com.adl.service.persistence.CommonInfoPersistHelper;
-import com.adl.service.persistence.CommonInfoPersistenceHelper;
+import com.adl.service.repository.fetch.CommonInfoFetchHelper;
+import com.adl.service.repository.persist.CommonInfoPersistHelper;
+import com.adl.service.repository.prepare.CommonInfoPrepareHelper;
 import com.adl.service.utils.InnerUtil;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.Disposable;
 
-/**
- * CommonInfoCaller 实现（SDK 内部使用，通过 {@link AdlService} 暴露）。
- */
 public final class CommonInfoRepository {
-    private CommonInfoLocalHelper localHelper = new CommonInfoLocalHelper();
-    private CommonInfoNetHelper netHelper = new CommonInfoNetHelper();
-    private CommonInfoPersistHelper persistHelper = new CommonInfoPersistHelper();
+    private final CommonInfoPrepareHelper prepareHelper = new CommonInfoPrepareHelper();
+    private final CommonInfoFetchHelper fetchHelper = new CommonInfoFetchHelper();
+    private final CommonInfoPersistHelper persistHelper = new CommonInfoPersistHelper();
 
     public CommonInfoRepository() {
     }
@@ -65,8 +50,8 @@ public final class CommonInfoRepository {
         ////////////// 1.同步机构信息 ////////////
         NzLog.i("同步机构信息");
         //启动时，请求一次机构信息，如果机构变更，清除数据标识
-        LoginInfoData loginInfo = queryLoginInfoSync();
-        LoginInfoData newLoginInfo = getLoginInfoSync();
+        LoginInfoData loginInfo = queryLoginInfo().blockingGet();
+        LoginInfoData newLoginInfo = getLoginInfo(EmptyRequest.builder().forceUpdate(true).build()).blockingGet();
         if (newLoginInfo != null && !TextUtils.isEmpty(newLoginInfo.getOrgId()) && !newLoginInfo.getOrgId().equals(loginInfo.getOrgId())) {
             DaoManagerProxy.getInstance().getStudentDao().clearAll();
             DaoManagerProxy.getInstance().getTeacherDao().clearAll();
@@ -106,7 +91,7 @@ public final class CommonInfoRepository {
                 .lastUpdateTime(forceUpdate ? null : lastTime != IDefine.INVALID_TIME ? InnerUtil.formatByTimeCode(recentUpdateTime) : null)
                 .build();
 
-        getStudentPagesAllSync(studentPageRequest);
+        getStudentPagesAll(studentPageRequest).blockingGet();
         pf.putLong(IDefine.LAST_STUDENT_UPDATE_TIME, serverTime);
 
         ////////////// 3.同步老师基本信息 ////////////
@@ -120,169 +105,126 @@ public final class CommonInfoRepository {
                     .pageSize(pageSize)
                     .lastUpdateTime(forceUpdate ? null : InnerUtil.formatByTimeCode(lastTime))
                     .build();
-            getTeacherListsAllSync(teacherListRequest);
+            getTeacherListsAll(teacherListRequest).blockingGet();
             pf.putLong(IDefine.LAST_TEACHER_UPDATE_TIME, serverTime);
         }
     }
 
-    public List<StudentData> queryAllStudentSync() {
-        return DaoManagerProxy.getInstance().getStudentDao().getAll().stream()
-                .map(data -> StudentEntity.convertToData(data))
-                .collect(Collectors.toList());
+    public Single<List<GradeTreeData>> getGradeTree(EmptyRequest request) {
+        return BaseRepositoryUtil.repositoryAsSingle(request, fetchHelper.createGetGradeTreeFunc());
     }
 
-    public List<StudentData> queryAllStudentWithFaceDataSync() {
-        return DaoManagerProxy.getInstance().getStudentDao().queryStudentWithFaceData().stream()
-                .map(data -> StudentEntity.convertToData(data))
-                .collect(Collectors.toList());
+    public Single<List<GradeChineseNameData>> getGradeChineseNameList(EmptyRequest request) {
+        return BaseRepositoryUtil.repositoryAsSingle(request, fetchHelper.createGetGradeChineseNameListFunc());
     }
 
-    public int queryAllStudentCountSync() {
-        return DaoManagerProxy.getInstance().getStudentDao().countSize();
+    public Single<List<ClassData>> getClassList(ClassListRequest request) {
+        return BaseRepositoryUtil.repositoryAsSingle(request, fetchHelper.createGetClassListFunc());
     }
 
-    @Override
-    public StudentData queryStudentByAccountIdSync(String accountId) {
-        return StudentEntity.convertToData(DaoManagerProxy.getInstance().getStudentDao().queryStudentByAccountId(accountId));
+    public Single<ClassInfoData> getClassInfo(ClassInfoRequest request) {
+        return BaseRepositoryUtil.repositoryAsSingle(request, fetchHelper.createGetClassInfoFunc());
     }
 
-    public List<StudentData> queryStudentByAccountIdsSync(List<String> accountIds) {
-        return DaoManagerProxy.getInstance().getStudentDao().queryStudentByAccountIds(accountIds).stream()
-                .map(data -> StudentEntity.convertToData(data))
-                .collect(Collectors.toList());
+    public Single<LoginInfoData> queryLoginInfo() {
+        return BaseRepositoryUtil.repositoryAsSingle(prepareHelper.createPrepareLoginInfoFunc());
     }
 
-    public List<StudentData> queryStudentByClassIdsSync(List<String> classIds) {
-        return DaoManagerProxy.getInstance().getStudentDao().queryStudentByClassIds(classIds).stream()
-                .map(data -> StudentEntity.convertToData(data))
-                .collect(Collectors.toList());
-    }
-
-    public List<StudentData> queryStudentByCarNumSync(String cardNum) {
-        return DaoManagerProxy.getInstance().getStudentDao().queryStudentWithCardNum(cardNum).stream()
-                .map(data -> StudentEntity.convertToData(data))
-                .collect(Collectors.toList());
-    }
-
-    public List<TeacherData> queryAllTeacherSync() {
-        return DaoManagerProxy.getInstance().getTeacherDao().getAll().stream()
-                .map(data -> TeacherEntity.convertToData(data))
-                .collect(Collectors.toList());
-    }
-
-    public List<TeacherData> queryAllTeacherWithFaceDataSync() {
-        return DaoManagerProxy.getInstance().getTeacherDao().queryTeacherWithFaceData().stream()
-                .map(data -> TeacherEntity.convertToData(data))
-                .collect(Collectors.toList());
-    }
-
-    public int queryAllTeacherCountSync(RequestCallback callback) {
-        return DaoManagerProxy.getInstance().getTeacherDao().countSize();
-    }
-
-    public TeacherData queryTeacherByAccountIdSync(String accountId) {
-        return TeacherEntity.convertToData(DaoManagerProxy.getInstance().getTeacherDao().queryTeacherByAccountId(accountId));
-    }
-
-    public List<TeacherData> queryTeacherByAccountIdsSync(List<String> accountIds) {
-        return DaoManagerProxy.getInstance().getTeacherDao().queryTeacherByAccountIds(accountIds).stream()
-                .map(data -> TeacherEntity.convertToData(data))
-                .collect(Collectors.toList());
-    }
-
-    public long getGradeTreeAsync(RequestScope scope, RequestCallback<List<GradeTreeData>> callback) {
-        CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(commonInfoService.getGradeTree(), callback);
-        SubscriptionManager.getInstance().add(scope.owner(), disposable);
-        return disposable.hashCode();
-    }
-
-    public List<GradeTreeData> getGradeTreeSync() throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(commonInfoService.getGradeTree());
-    }
-
-    public long getGradeChineseNameListAsync(RequestScope scope, RequestCallback<List<GradeChineseNameData>> callback) {
-        CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(commonInfoService.getGradeChineseNameList(), callback);
-        SubscriptionManager.getInstance().add(scope.owner(), disposable);
-        return disposable.hashCode();
-    }
-
-    public List<GradeChineseNameData> getGradeChineseNameListSync() throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(commonInfoService.getGradeChineseNameList());
-    }
-
-    public long getClassListAsync(RequestScope scope, ClassListRequest request, RequestCallback<List<ClassData>> callback) {
-        CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(commonInfoService.getClassList(request), callback);
-        SubscriptionManager.getInstance().add(scope.owner(), disposable);
-        return disposable.hashCode();
-    }
-
-    public List<ClassData> getClassListSync(ClassListRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(commonInfoService.getClassList(request));
-    }
-
-    public long getClassInfoAsync(RequestScope scope, ClassInfoRequest request, RequestCallback<ClassInfoData> callback) {
-        CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(commonInfoService.getClassInfo(request), callback);
-        SubscriptionManager.getInstance().add(scope.owner(), disposable);
-        return disposable.hashCode();
-    }
-
-    public ClassInfoData getClassInfoSync(ClassInfoRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(commonInfoService.getClassInfo(request));
-    }
-
-    public Single<LoginInfoData> queryLoginInfoSync() {
-        return BaseRepositoryUtil.repositoryAsSingle(localHelper.createLoginInfoFunc());
-    }
-
-    public Single<LoginInfoData> getLoginInfo() {
-        return BaseRepositoryUtil.repositoryAsSingle(netHelper.createGetLoginInfoFunc(),
+    public Single<LoginInfoData> getLoginInfo(EmptyRequest request) {
+        return BaseRepositoryUtil.repositoryAsSingle(request,
+                fetchHelper.createGetLoginInfoFunc(),
                 persistHelper.createPersistLoginInfoFunc());
     }
 
+    public Single<List<AcayearData>> getAcayearList(EmptyRequest request) {
+        return BaseRepositoryUtil.repositoryAsSingle(request, fetchHelper.createGetAcayearListFunc());
+    }
 
-    public Single<List<AcayearData>> getAcayearList() {
-        return BaseRepositoryUtil.repositoryAsSingle(netHelper.createGetAcayearListFunc());
+    public Single<List<TeacherData>> queryAllTeacherList() {
+        return BaseRepositoryUtil.repositoryAsSingle(prepareHelper.createPrepareTeacherListFunc());
+    }
+
+    public Single<List<TeacherData>> queryAllTeacherListWithFaceData() {
+        return BaseRepositoryUtil.repositoryAsSingle(prepareHelper.createPrepareTeacherListWithFaceDataFunc());
+    }
+
+    public Single<Integer> queryAllTeacherCount() {
+        return BaseRepositoryUtil.repositoryAsSingle(prepareHelper.createPrepareTeacherCountFunc());
+    }
+
+    public Single<TeacherData> queryTeacherByAccountId(String accountId) {
+        return BaseRepositoryUtil.repositoryAsSingle(accountId,
+                prepareHelper.createPrepareTeacherByAccountIdFunc());
+    }
+
+    public Single<List<TeacherData>> queryTeacherListByAccountIds(List<String> accountIds) {
+        return BaseRepositoryUtil.repositoryAsSingle(accountIds,
+                prepareHelper.createPrepareTeacherListByAccountIdsFunc());
     }
 
     public Single<GetPageResult> getTeacherListsAll(TeacherListRequest request) {
         return BaseRepositoryUtil.repositoryListsAsSingle(request,
-                localHelper.createTeacherListsAllFunc(),
-                netHelper.createGetTeacherListsAllFunc(request),
+                prepareHelper.createPrepareTeacherListsAllFunc(),
+                fetchHelper.createGetTeacherListsAllFunc(request),
                 persistHelper.createPersistTeacherList());
     }
 
     public Single<List<TeacherData>> getTeacherList(TeacherListRequest request) {
         return BaseRepositoryUtil.repositoryAsSingle(request,
-                netHelper.createGetTeacherListFunc(),
+                fetchHelper.createGetTeacherListFunc(),
                 persistHelper.createPersistTeacherList());
+    }
+
+    public Single<List<StudentData>> queryAllStudent() {
+        return BaseRepositoryUtil.repositoryAsSingle(prepareHelper.createPrepareStudentFunc());
+    }
+
+    public Single<List<StudentData>> queryAllStudentWithFaceData() {
+        return BaseRepositoryUtil.repositoryAsSingle(prepareHelper.createPrepareStudentWithFaceDataFunc());
+    }
+
+    public Single<Integer> queryAllStudentCount() {
+        return BaseRepositoryUtil.repositoryAsSingle(prepareHelper.createPrepareStudentCountFunc());
+    }
+
+    public Single<StudentData> queryStudentByAccountId(String accountId) {
+        return BaseRepositoryUtil.repositoryAsSingle(accountId, prepareHelper.createPrepareStudentByAccountIdFunc());
+    }
+
+    public Single<List<StudentData>> queryStudentByAccountIds(List<String> accountIds) {
+        return BaseRepositoryUtil.repositoryAsSingle(accountIds, prepareHelper.createPrepareStudentByAccountIdsFunc());
+    }
+
+    public Single<List<StudentData>> queryStudentByClassIds(List<String> classIds) {
+        return BaseRepositoryUtil.repositoryAsSingle(classIds, prepareHelper.createPrepareStudentByClassIdsFunc());
+    }
+
+    public Single<List<StudentData>> queryStudentByCardNum(String cardNum) {
+        return BaseRepositoryUtil.repositoryAsSingle(cardNum, prepareHelper.createPrepareStudentByCardNumFunc());
     }
 
     public Single<GetPageResult> getStudentPagesAll(StudentPageRequest request) {
         return BaseRepositoryUtil.repositoryPagesAsSingle(request,
-                localHelper.createStudentPagesAllFunc(),
-                netHelper.createGetStudentPagesAllFunc(request),
-                persistHelper.createPersistStudentListFunc()
+                prepareHelper.createPrepareStudentPagesAllFunc(),
+                fetchHelper.createGetStudentPagesAllFunc(request),
+                persistHelper.createPersistStudentPageFunc()
         );
     }
 
     public Single<BasePageData<StudentData>> getStudentPage(StudentPageRequest request) {
         return BaseRepositoryUtil.repositoryAsSingle(request,
-                netHelper.createGetStudentPageFunc(),
+                fetchHelper.createGetStudentPageFunc(),
                 persistHelper.createPersistStudentPageFunc());
     }
 
     public Single<List<DictData>> getDictList(DictRequest request) {
         return BaseRepositoryUtil.repositoryAsSingle(request,
-                localHelper.createDictListFunc(),
-                netHelper.createGetDictListFunc(),
-                persistHelper.createPersistDictListFunc());
+                prepareHelper.createPrepareDictListFunc(),
+                fetchHelper.createGetDictListFunc(),
+                persistHelper.createPersistDictListFunc(request));
     }
 
     public Single<Boolean> deviceActive(DeviceActiveRequest request) {
-        return BaseRepositoryUtil.repositoryAsSingle(request, netHelper.createGetDeviceActiveFunc());
+        return BaseRepositoryUtil.repositoryAsSingle(request, fetchHelper.createGetDeviceActiveFunc());
     }
 }

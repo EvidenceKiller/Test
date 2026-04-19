@@ -16,7 +16,7 @@ import com.adl.service.data.BasePageData;
 import com.adl.service.data.ClassroomCompetitionRecordData;
 import com.adl.service.data.SunshineRunningSportDetailData;
 import com.adl.service.data.TeachCourseDetailData;
-import com.adl.service.web.BigScreenH5Service;
+import com.adl.service.repository.BigScreenH5Repository;
 
 import java.util.List;
 
@@ -27,87 +27,87 @@ import io.reactivex.rxjava3.disposables.Disposable;
  */
 public final class BigScreenH5CallerImpl implements BigScreenH5Caller {
 
-    private final BigScreenH5Service bigScreenH5Service;
+    private final BigScreenH5Repository bigScreenH5Repository;
 
-    public BigScreenH5CallerImpl(BigScreenH5Service bigScreenH5Service) {
-        this.bigScreenH5Service = bigScreenH5Service;
+    public BigScreenH5CallerImpl() {
+        this.bigScreenH5Repository = new BigScreenH5Repository();
     }
 
     @Override
     public long getTeachCourseDetailListAsync(RequestScope scope, TeachCourseRequest request, RequestCallback<List<TeachCourseDetailData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenH5Service.getTeachCourseDetailList(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenH5Repository.getTeachCourseDetailList(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<TeachCourseDetailData> getTeachCourseDetailListSync(TeachCourseRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenH5Service.getTeachCourseDetailList(request));
+        return RxCallbackScheduler.blockingGet(bigScreenH5Repository.getTeachCourseDetailList(request));
     }
 
     @Override
     public long getTeachCourseDataDatesAsync(RequestScope scope, TeachCourseDataDatesRequest request, RequestCallback<List<String>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenH5Service.getTeachCourseDataDates(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenH5Repository.getTeachCourseDataDates(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<String> getTeachCourseDataDatesSync(TeachCourseDataDatesRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenH5Service.getTeachCourseDataDates(request));
+        return RxCallbackScheduler.blockingGet(bigScreenH5Repository.getTeachCourseDataDates(request));
     }
 
     @Override
     public long getTeachCourseTimesAsync(RequestScope scope, TeachCourseRequest request, RequestCallback<Integer> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenH5Service.getTeachCourseTimes(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenH5Repository.getTeachCourseTimes(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public Integer getTeachCourseTimesSync(TeachCourseRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenH5Service.getTeachCourseTimes(request));
+        return RxCallbackScheduler.blockingGet(bigScreenH5Repository.getTeachCourseTimes(request));
     }
 
     @Override
     public long getTeachCourseButtonClickableAsync(RequestScope scope, TeachCourseButtonClickCountRequest request, RequestCallback<Boolean> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenH5Service.getTeachCourseButtonClickable(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenH5Repository.getTeachCourseButtonClickable(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public Boolean getTeachCourseButtonClickableSync(TeachCourseButtonClickCountRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenH5Service.getTeachCourseButtonClickable(request));
+        return RxCallbackScheduler.blockingGet(bigScreenH5Repository.getTeachCourseButtonClickable(request));
     }
 
     @Override
     public long getSunshineRunningSportDetailPageAsync(RequestScope scope, SunshineRunningSportDetailPageRequest request, RequestCallback<BasePageData<SunshineRunningSportDetailData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenH5Service.getSunshineRunningSportDetailPage(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenH5Repository.getSunshineRunningSportDetailPage(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public BasePageData<SunshineRunningSportDetailData> getSunshineRunningSportDetailPageSync(SunshineRunningSportDetailPageRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenH5Service.getSunshineRunningSportDetailPage(request));
+        return RxCallbackScheduler.blockingGet(bigScreenH5Repository.getSunshineRunningSportDetailPage(request));
     }
 
     @Override
     public long getSunshineRunningCompetitionRecordPageAsync(RequestScope scope, SunshineRunningCompetitionRecordPageRequest request, RequestCallback<BasePageData<ClassroomCompetitionRecordData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenH5Service.getSunshineRunningCompetitionRecordPage(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenH5Repository.getSunshineRunningCompetitionRecordPage(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public BasePageData<ClassroomCompetitionRecordData> getSunshineRunningCompetitionRecordPageSync(SunshineRunningCompetitionRecordPageRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenH5Service.getSunshineRunningCompetitionRecordPage(request));
+        return RxCallbackScheduler.blockingGet(bigScreenH5Repository.getSunshineRunningCompetitionRecordPage(request));
     }
 }

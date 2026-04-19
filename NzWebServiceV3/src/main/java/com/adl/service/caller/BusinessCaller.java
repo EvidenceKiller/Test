@@ -124,12 +124,6 @@ public interface BusinessCaller {
      */
     BasePageData<CompetitionData> getCompetitionPageSync(CompetitionPageRequest request) throws NzBaseException;
 
-    /**
-     * 清空运动会数据
-     * <p>同步调用。</p>
-     */
-    void clearSportMeetDataSync();
-
     long getSportMeetPagesAllAsync(RequestScope scope, SportMeetPageRequest request, RequestCallback<GetPageResult> callback);
 
     /**

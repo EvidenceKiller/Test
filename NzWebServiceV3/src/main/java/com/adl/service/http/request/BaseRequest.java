@@ -19,7 +19,7 @@ public abstract class BaseRequest {
 
         protected abstract T self();
 
-        public T foreceUpdate(Boolean forceUpdate) {
+        public T forceUpdate(Boolean forceUpdate) {
             this.forceUpdate = forceUpdate;
             return self();
         }

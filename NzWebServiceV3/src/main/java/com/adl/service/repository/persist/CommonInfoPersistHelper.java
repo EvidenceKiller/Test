@@ -1,5 +1,7 @@
-package com.adl.service.persistence;
+package com.adl.service.repository.persist;
 
+import com.adl.service.repository.prepare.CacheTag;
+import com.adl.service.repository.prepare.MemoryCacheManager;
 import com.adl.service.common.FileDownManager;
 import com.adl.service.data.BasePageData;
 import com.adl.service.data.DictData;
@@ -12,12 +14,13 @@ import com.adl.service.db.entity.LoginInfoEntity;
 import com.adl.service.db.entity.StudentEntity;
 import com.adl.service.db.entity.TeacherEntity;
 import com.adl.service.exception.NzCommonException;
+import com.adl.service.http.request.DictRequest;
+import com.adl.service.utils.InnerUtil;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.functions.Function;
 
 public final class CommonInfoPersistHelper {
@@ -49,45 +52,28 @@ public final class CommonInfoPersistHelper {
         };
     }
 
-    public Function<List<StudentData>, List<StudentData>> createPersistStudentListFunc() {
-        return (dataList) -> {
-            if (dataList == null || dataList.isEmpty()) {
-                throw new NzCommonException("student page data is empty");
-            }
-            persistStudentList(dataList);
-            return dataList;
-        };
-    }
-
     public Function<BasePageData<StudentData>, BasePageData<StudentData>> createPersistStudentPageFunc() {
         return (pageData) -> {
-            if (pageData == null) {
+            if (pageData == null || pageData.getRecords() == null || pageData.getRecords().isEmpty()) {
                 throw new NzCommonException("student page data is empty");
             }
-            List<StudentData> dataList = pageData.getRecords();
-            if (dataList == null || dataList.isEmpty()) {
-                throw new NzCommonException("student page data is empty");
-            }
-            persistStudentList(dataList);
+            Map<Boolean, List<StudentEntity>> partitioned = pageData.getRecords().stream()
+                    .map(data -> StudentEntity.convertToEntity(data))
+                    .collect(Collectors.partitioningBy(data -> "0".equals(data.getDelFlag())));
+            DaoManagerProxy.getInstance().getStudentDao().insertAll(partitioned.get(true));
+            DaoManagerProxy.getInstance().getStudentDao().clear(partitioned.get(false));
+            FileDownManager.instance().clearByUrls(partitioned.get(false).stream().map(StudentEntity::getUserFaceImgUrl).collect(Collectors.toList()));
+            FileDownManager.instance().clearByUrls(partitioned.get(false).stream().map(StudentEntity::getThumbnailUserFaceImgUrl).collect(Collectors.toList()));
             return pageData;
         };
     }
 
-    private void persistStudentList(List<StudentData> dataList) {
-        Map<Boolean, List<StudentEntity>> partitioned = dataList.stream()
-                .map(data -> StudentEntity.convertToEntity(data))
-                .collect(Collectors.partitioningBy(data -> "0".equals(data.getDelFlag())));
-        DaoManagerProxy.getInstance().getStudentDao().insertAll(partitioned.get(true));
-        DaoManagerProxy.getInstance().getStudentDao().clear(partitioned.get(false));
-        FileDownManager.instance().clearByUrls(partitioned.get(false).stream().map(StudentEntity::getUserFaceImgUrl).collect(Collectors.toList()));
-        FileDownManager.instance().clearByUrls(partitioned.get(false).stream().map(StudentEntity::getThumbnailUserFaceImgUrl).collect(Collectors.toList()));
-    }
-
-    public Function<List<DictData>, List<DictData>> createPersistDictListFunc() {
+    public Function<List<DictData>, List<DictData>> createPersistDictListFunc(DictRequest request) {
         return (dataList) -> {
             if (dataList == null || dataList.isEmpty()) {
                 throw new NzCommonException("dict data is empty");
             }
+            MemoryCacheManager.getInstance().put(CacheTag.CACHE_TAG_DICT_LIST + InnerUtil.toJson(request), dataList, DictEntity.EXPIRED_TIME);
             DaoManagerProxy.getInstance().getDictDao().clearByDictCode(dataList.get(0).getDictCode());
             List<DictEntity> entityList = dataList.stream()
                     .map(data -> DictEntity.convertToEntity(data))

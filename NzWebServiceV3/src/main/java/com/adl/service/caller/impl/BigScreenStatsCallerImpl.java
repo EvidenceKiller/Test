@@ -26,7 +26,7 @@ import com.adl.service.data.SportRankKingData;
 import com.adl.service.data.SportSkuRankData;
 import com.adl.service.data.SumScoreRankData;
 import com.adl.service.data.WarRecordRankData;
-import com.adl.service.web.BigScreenStatsService;
+import com.adl.service.repository.BigScreenStatsRepository;
 
 import java.util.List;
 
@@ -37,165 +37,165 @@ import io.reactivex.rxjava3.disposables.Disposable;
  */
 public final class BigScreenStatsCallerImpl implements BigScreenStatsCaller {
 
-    private final BigScreenStatsService bigScreenStatsService;
+    private final BigScreenStatsRepository bigScreenStatsRepository;
 
-    public BigScreenStatsCallerImpl(BigScreenStatsService bigScreenStatsService) {
-        this.bigScreenStatsService = bigScreenStatsService;
+    public BigScreenStatsCallerImpl() {
+        this.bigScreenStatsRepository = new BigScreenStatsRepository();
     }
 
     @Override
     public long getWarRecordRankAsync(RequestScope scope, WarRecordRankRequest request, RequestCallback<List<WarRecordRankData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getWarRecordRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getWarRecordRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<WarRecordRankData> getWarRecordRankSync(WarRecordRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getWarRecordRank(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getWarRecordRank(request));
     }
 
     @Override
     public long getPersonRankAsync(RequestScope scope, PersonRankRequest request, RequestCallback<PersonRankData> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getPersonRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getPersonRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public PersonRankData getPersonRankSync(PersonRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getPersonRank(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getPersonRank(request));
     }
 
     @Override
     public long getMorePeopleVictoryRankAsync(RequestScope scope, MorePeopleVictoryRankRequest request, RequestCallback<List<MorePeopleVictoryRankData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getMorePeopleVictoryRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getMorePeopleVictoryRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<MorePeopleVictoryRankData> getMorePeopleVictoryRankSync(MorePeopleVictoryRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getMorePeopleVictoryRank(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getMorePeopleVictoryRank(request));
     }
 
     @Override
     public long getMorePeopleRecordRankAsync(RequestScope scope, MorePeopleRecordRankRequest request, RequestCallback<List<MorePeopleRecordRankData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getMorePeopleRecordRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getMorePeopleRecordRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<MorePeopleRecordRankData> getMorePeopleRecordRankSync(MorePeopleRecordRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getMorePeopleRecordRank(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getMorePeopleRecordRank(request));
     }
 
     @Override
     public long getOverviewAsync(RequestScope scope, OverviewRequest request, RequestCallback<OverviewData> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getOverview(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getOverview(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public OverviewData getOverviewSync(OverviewRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getOverview(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getOverview(request));
     }
 
     @Override
     public long getCompetitionRankAsync(RequestScope scope, CompetitionRankRequest request, RequestCallback<CompetitionRankData> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getCompetitionRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getCompetitionRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public CompetitionRankData getCompetitionRankSync(CompetitionRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getCompetitionRank(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getCompetitionRank(request));
     }
 
     @Override
     public long sumScoreRankAsync(RequestScope scope, SumScoreRankRequest request, RequestCallback<List<SumScoreRankData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.sumScoreRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.sumScoreRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<SumScoreRankData> sumScoreRankSync(SumScoreRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.sumScoreRank(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.sumScoreRank(request));
     }
 
     @Override
     public long getSportSkuRankAsync(RequestScope scope, SportRankRequest request, RequestCallback<List<SportSkuRankData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getSportSkuRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getSportSkuRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<SportSkuRankData> getSportSkuRankSync(SportRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getSportSkuRank(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getSportSkuRank(request));
     }
 
     @Override
     public long getSportRankKingAsync(RequestScope scope, SportRankRequest request, RequestCallback<List<SportRankKingData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getSportRankKing(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getSportRankKing(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<SportRankKingData> getSportRankKingSync(SportRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getSportRankKing(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getSportRankKing(request));
     }
 
     @Override
     public long getPhysicalTrainingRankAsync(RequestScope scope, SportRankRequest request, RequestCallback<List<SportRankKingData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getPhysicalTrainingRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getPhysicalTrainingRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<SportRankKingData> getPhysicalTrainingRankSync(SportRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getPhysicalTrainingRank(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getPhysicalTrainingRank(request));
     }
 
     @Override
     public long getExerciseSumTimeRankAsync(RequestScope scope, SportRankRequest request, RequestCallback<List<SportRankKingData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getExerciseSumTimeRank(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getExerciseSumTimeRank(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<SportRankKingData> getExerciseSumTimeRankSync(SportRankRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getExerciseSumTimeRank(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getExerciseSumTimeRank(request));
     }
 
     @Override
     public long getBestRankTopAsync(RequestScope scope, BestRankTopRequest request, RequestCallback<List<BestRankTopData>> callback) {
         CallerUtil.assertScope(scope);
-        Disposable disposable = RxCallbackScheduler.scheduleBaseResponse(bigScreenStatsService.getBestRankTop(request), callback);
+        Disposable disposable = RxCallbackScheduler.schedule(bigScreenStatsRepository.getBestRankTop(request), callback);
         SubscriptionManager.getInstance().add(scope.owner(), disposable);
         return disposable.hashCode();
     }
 
     @Override
     public List<BestRankTopData> getBestRankTopSync(BestRankTopRequest request) throws NzBaseException {
-        return RxCallbackScheduler.blockingGetFromResponse(bigScreenStatsService.getBestRankTop(request));
+        return RxCallbackScheduler.blockingGet(bigScreenStatsRepository.getBestRankTop(request));
     }
 }
