@@ -1,6 +1,9 @@
 package com.adl.service.caller;
 
 import com.adl.service.callback.RequestCallback;
+import com.adl.service.data.AccountRecordData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.OrgRecordData;
 import com.adl.service.exception.NzBaseException;
 import com.adl.service.http.request.AccountRecordPageRequest;
 import com.adl.service.http.request.OrgRecordPageRequest;
@@ -10,9 +13,6 @@ import com.adl.service.http.request.ReportStudentPlanRequest;
 import com.adl.service.http.request.ReportStudentSportRequest;
 import com.adl.service.http.request.ReportTeacherSportRequest;
 import com.adl.service.http.request.RequestScope;
-import com.adl.service.data.AccountRecordData;
-import com.adl.service.data.BasePageData;
-import com.adl.service.data.OrgRecordData;
 
 /**
  * SportInfoCaller。

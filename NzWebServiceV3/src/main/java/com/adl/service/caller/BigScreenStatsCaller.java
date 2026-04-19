@@ -1,6 +1,16 @@
 package com.adl.service.caller;
 
 import com.adl.service.callback.RequestCallback;
+import com.adl.service.data.BestRankTopData;
+import com.adl.service.data.CompetitionRankData;
+import com.adl.service.data.MorePeopleRecordRankData;
+import com.adl.service.data.MorePeopleVictoryRankData;
+import com.adl.service.data.OverviewData;
+import com.adl.service.data.PersonRankData;
+import com.adl.service.data.SportRankKingData;
+import com.adl.service.data.SportSkuRankData;
+import com.adl.service.data.SumScoreRankData;
+import com.adl.service.data.WarRecordRankData;
 import com.adl.service.exception.NzBaseException;
 import com.adl.service.http.request.BestRankTopRequest;
 import com.adl.service.http.request.CompetitionRankRequest;
@@ -12,16 +22,6 @@ import com.adl.service.http.request.RequestScope;
 import com.adl.service.http.request.SportRankRequest;
 import com.adl.service.http.request.SumScoreRankRequest;
 import com.adl.service.http.request.WarRecordRankRequest;
-import com.adl.service.data.BestRankTopData;
-import com.adl.service.data.CompetitionRankData;
-import com.adl.service.data.MorePeopleRecordRankData;
-import com.adl.service.data.MorePeopleVictoryRankData;
-import com.adl.service.data.OverviewData;
-import com.adl.service.data.PersonRankData;
-import com.adl.service.data.SportRankKingData;
-import com.adl.service.data.SportSkuRankData;
-import com.adl.service.data.SumScoreRankData;
-import com.adl.service.data.WarRecordRankData;
 
 import java.util.List;
 

@@ -1,6 +1,14 @@
 package com.adl.service.caller;
 
+import com.adl.service.callback.GetPageResult;
 import com.adl.service.callback.RequestCallback;
+import com.adl.service.data.BannerDetailData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.DeviceFocusData;
+import com.adl.service.data.DictMapData;
+import com.adl.service.data.SceneData;
+import com.adl.service.data.SportSkuData;
+import com.adl.service.data.SportSkuDetailData;
 import com.adl.service.exception.NzBaseException;
 import com.adl.service.http.request.BannerDetailListRequest;
 import com.adl.service.http.request.DeviceFocusListRequest;
@@ -10,14 +18,6 @@ import com.adl.service.http.request.SceneListRequest;
 import com.adl.service.http.request.SportSkuDetailRequest;
 import com.adl.service.http.request.SportSkuPageRequest;
 import com.adl.service.http.request.UploadDeviceNameRequest;
-import com.adl.service.data.BannerDetailData;
-import com.adl.service.data.BasePageData;
-import com.adl.service.data.DeviceFocusData;
-import com.adl.service.data.DictMapData;
-import com.adl.service.data.SceneData;
-import com.adl.service.callback.GetPageResult;
-import com.adl.service.data.SportSkuDetailData;
-import com.adl.service.data.SportSkuData;
 
 import java.util.List;
 import java.util.Map;

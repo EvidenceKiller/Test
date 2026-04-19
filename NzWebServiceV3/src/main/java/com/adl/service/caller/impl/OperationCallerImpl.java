@@ -1,18 +1,17 @@
 package com.adl.service.caller.impl;
 
 import com.adl.service.AdlService;
+import com.adl.service.callback.GetPageResult;
 import com.adl.service.callback.RequestCallback;
 import com.adl.service.caller.OperationCaller;
-import com.adl.service.db.DaoManagerProxy;
+import com.adl.service.data.BannerDetailData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.DeviceFocusData;
+import com.adl.service.data.DictMapData;
+import com.adl.service.data.SceneData;
+import com.adl.service.data.SportSkuData;
+import com.adl.service.data.SportSkuDetailData;
 import com.adl.service.exception.NzBaseException;
-import com.adl.service.internal.RxCallbackScheduler;
-import com.adl.service.internal.SubscriptionManager;
-import com.adl.service.log.NzLog;
-import com.adl.service.persistence.BasePagePersistence;
-import com.adl.service.persistence.BasePersistence;
-import com.adl.service.persistence.OperationPersistenceHelper;
-import com.adl.service.repository.OperationRepository;
-import com.adl.service.utils.InnerUtil;
 import com.adl.service.http.request.BannerDetailListRequest;
 import com.adl.service.http.request.DeviceFocusListRequest;
 import com.adl.service.http.request.DictMapRequest;
@@ -21,18 +20,12 @@ import com.adl.service.http.request.SceneListRequest;
 import com.adl.service.http.request.SportSkuDetailRequest;
 import com.adl.service.http.request.SportSkuPageRequest;
 import com.adl.service.http.request.UploadDeviceNameRequest;
-import com.adl.service.data.BannerDetailData;
-import com.adl.service.data.BasePageData;
-import com.adl.service.data.DeviceFocusData;
-import com.adl.service.data.DictMapData;
-import com.adl.service.callback.GetPageResult;
-import com.adl.service.data.SceneData;
-import com.adl.service.data.SportSkuData;
-import com.adl.service.data.SportSkuDetailData;
+import com.adl.service.internal.RxCallbackScheduler;
+import com.adl.service.internal.SubscriptionManager;
+import com.adl.service.repository.OperationRepository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 

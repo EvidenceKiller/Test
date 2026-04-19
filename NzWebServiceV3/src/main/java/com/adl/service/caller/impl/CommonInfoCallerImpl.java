@@ -1,35 +1,9 @@
 package com.adl.service.caller.impl;
 
-import android.text.TextUtils;
-
 import com.adl.service.AdlService;
+import com.adl.service.callback.GetPageResult;
 import com.adl.service.callback.RequestCallback;
 import com.adl.service.caller.CommonInfoCaller;
-import com.adl.service.common.FileDownManager;
-import com.adl.service.common.IDefine;
-import com.adl.service.common.InnerPreferences;
-import com.adl.service.db.DaoManagerProxy;
-import com.adl.service.db.StudentDao;
-import com.adl.service.db.entity.LoginInfoEntity;
-import com.adl.service.db.entity.StudentEntity;
-import com.adl.service.db.entity.TeacherEntity;
-import com.adl.service.exception.NzBaseException;
-import com.adl.service.http.request.EmptyRequest;
-import com.adl.service.internal.RxCallbackScheduler;
-import com.adl.service.internal.SubscriptionManager;
-import com.adl.service.log.NzLog;
-import com.adl.service.persistence.BasePagePersistence;
-import com.adl.service.persistence.BasePersistence;
-import com.adl.service.persistence.CommonInfoPersistenceHelper;
-import com.adl.service.repository.CommonInfoRepository;
-import com.adl.service.utils.InnerUtil;
-import com.adl.service.http.request.ClassInfoRequest;
-import com.adl.service.http.request.ClassListRequest;
-import com.adl.service.http.request.DeviceActiveRequest;
-import com.adl.service.http.request.DictRequest;
-import com.adl.service.http.request.RequestScope;
-import com.adl.service.http.request.StudentPageRequest;
-import com.adl.service.http.request.TeacherListRequest;
 import com.adl.service.data.AcayearData;
 import com.adl.service.data.BasePageData;
 import com.adl.service.data.ClassData;
@@ -38,13 +12,22 @@ import com.adl.service.data.DictData;
 import com.adl.service.data.GradeChineseNameData;
 import com.adl.service.data.GradeTreeData;
 import com.adl.service.data.LoginInfoData;
-import com.adl.service.callback.GetPageResult;
 import com.adl.service.data.StudentData;
 import com.adl.service.data.TeacherData;
-import com.adl.service.web.CommonInfoService;
+import com.adl.service.exception.NzBaseException;
+import com.adl.service.http.request.ClassInfoRequest;
+import com.adl.service.http.request.ClassListRequest;
+import com.adl.service.http.request.DeviceActiveRequest;
+import com.adl.service.http.request.DictRequest;
+import com.adl.service.http.request.EmptyRequest;
+import com.adl.service.http.request.RequestScope;
+import com.adl.service.http.request.StudentPageRequest;
+import com.adl.service.http.request.TeacherListRequest;
+import com.adl.service.internal.RxCallbackScheduler;
+import com.adl.service.internal.SubscriptionManager;
+import com.adl.service.repository.CommonInfoRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 

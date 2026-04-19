@@ -1,11 +1,11 @@
 package com.adl.service.caller;
 
 import com.adl.service.callback.RequestCallback;
+import com.adl.service.data.LoginData;
 import com.adl.service.exception.NzBaseException;
 import com.adl.service.http.request.LoginRequest;
 import com.adl.service.http.request.LogoutRequest;
 import com.adl.service.http.request.RequestScope;
-import com.adl.service.data.LoginData;
 
 /**
  * LoginAuthCaller。

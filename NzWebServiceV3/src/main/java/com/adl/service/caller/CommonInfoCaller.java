@@ -1,6 +1,17 @@
 package com.adl.service.caller;
 
+import com.adl.service.callback.GetPageResult;
 import com.adl.service.callback.RequestCallback;
+import com.adl.service.data.AcayearData;
+import com.adl.service.data.BasePageData;
+import com.adl.service.data.ClassData;
+import com.adl.service.data.ClassInfoData;
+import com.adl.service.data.DictData;
+import com.adl.service.data.GradeChineseNameData;
+import com.adl.service.data.GradeTreeData;
+import com.adl.service.data.LoginInfoData;
+import com.adl.service.data.StudentData;
+import com.adl.service.data.TeacherData;
 import com.adl.service.exception.NzBaseException;
 import com.adl.service.http.request.ClassInfoRequest;
 import com.adl.service.http.request.ClassListRequest;
@@ -10,17 +21,6 @@ import com.adl.service.http.request.EmptyRequest;
 import com.adl.service.http.request.RequestScope;
 import com.adl.service.http.request.StudentPageRequest;
 import com.adl.service.http.request.TeacherListRequest;
-import com.adl.service.data.AcayearData;
-import com.adl.service.data.BasePageData;
-import com.adl.service.data.ClassInfoData;
-import com.adl.service.data.ClassData;
-import com.adl.service.data.DictData;
-import com.adl.service.data.GradeChineseNameData;
-import com.adl.service.data.GradeTreeData;
-import com.adl.service.data.LoginInfoData;
-import com.adl.service.callback.GetPageResult;
-import com.adl.service.data.StudentData;
-import com.adl.service.data.TeacherData;
 
 import java.util.List;
 
